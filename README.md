@@ -51,14 +51,31 @@ Website đặt phòng resort giúp tối ưu hóa quy trình quản lý đặt p
 ## 🚀 Hướng dẫn cài đặt
 ```bash
 # 1. Clone repo
-git clone https://github.com/<your-username>/resort-booking-system.git
+git clone https://github.com/quyen29/lacitahotelnhom7.git
 
 # 2. Cấu hình database trong file:
 src/main/resources/application.properties
 
+spring.application.name=hoteldemo
+
+server.port=8080
+server.address=0.0.0.0
+
+spring.mail.host=smtp-relay.brevo.com
+spring.mail.port=587
+spring.mail.username=#Tài khoản brevo
+spring.mail.password=#Tài khoản brevo
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.protocol=smtp
+spring.mail.default-encoding=UTF-8
+
+spring.main.banner-mode=off
+logging.level.root=warn
+
 spring.datasource.url=jdbc:mysql://localhost:3306/bookingsystemdb
-spring.datasource.username=vos
-spring.datasource.password=vos!12345678
+spring.datasource.username=#
+spring.datasource.password=#
 
 # 3. Build project
 mvn clean install
