@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm loại phòng</title>
+    <link rel="stylesheet" th:href="@{/admin/room/addRoom.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="main-content">
+        <div class="header">
+            <div class="page-title">Thêm loại phòng</div>
+        </div>
+        <div class="content-page active">
+            <div class="content-section">
+                <form th:action="@{/admin/room/addRoomType}" th:object="${roomType}" method="POST"
+                      class="form-container">
+                    <div class="form-group">
+                        <label for="roomTypeName">Loại phòng</label>
+                        <input type="text" th:field="*{roomTypeName}" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxOccupancy">Số người tối đa</label>
+                        <input type="number" th:field="*{maxOccupancy}" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="roomImage">Link ảnh phòng</label>
+                        <input type="text" th:field="*{roomImage}" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="area">Diện tích (m²)</label>
+                        <input type="number" step="1" th:field="*{area}" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Giá phòng (VND)</label>
+                        <input type="number" step="100000" th:field="*{price}" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Mô tả</label>
+                        <textarea th:field="*{description}" class="form-control" rows="4"
+                                  placeholder="Nhập mô tả chi tiết về loại phòng"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <a class="btn btn-secondary" th:href="@{/admin/room}">Hủy</a>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

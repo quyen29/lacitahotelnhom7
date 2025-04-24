@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa đặt phòng - LA CITA</title>
+    <link rel="stylesheet" th:href="@{/admin/updateBooking/updateBooking.css}">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<form th:action="@{/admin/roomBooked/updateBooking/save}" method="POST" enctype="multipart/form-data"
+      class="edit-room-form">
+    <h2>Chỉnh sửa đặt phòng</h2>
+    <input type="hidden" id="bookingID" name="bookingID" th:value="${bookingID}">
+    <input type="hidden" id="roomID" name="roomID" th:value="${roomID}">
+
+    <label for="currentStatus">Trạng thái hiện tại:</label>
+    <select id="currentStatus" name="currentStatus" disabled>
+        <option th:value="${currentStatus}" th:text="${currentStatus}"></option>
+    </select>
+
+    <label for="newStatus">Trạng thái muốn cập nhật:</label>
+    <select id="newStatus" name="newStatus" required>
+        <option th:each="status : ${otherStatuses}" th:value="${status}" th:text="${status}"></option>
+    </select>
+
+    <div class="image-preview-container">
+        <div class="file-info left">
+            <label for="checkinImage">Ảnh khuôn mặt lúc check-in</label>
+            <img th:if="${checkinImageBase64 != ''}"
+                 th:src="'data:image/jpeg;base64,' + ${checkinImageBase64}"
+                 class="image-preview"
+                 style="margin-bottom: 10px; display: block;"
+                 alt="Ảnh check-in từ DB">
+            <input type="file" id="checkinImage" name="checkinImage" accept="image/*">
+            <span id="checkinFilename">Chưa chọn ảnh</span>
+            <img id="checkinPreview" class="image-preview" alt="Xem trước ảnh check-in">
+        </div>
+
+        <div class="file-info right">
+            <label for="checkoutImage">Ảnh khuôn mặt lúc check-out</label>
+            <img th:if="${checkoutImageBase64 != ''}"
+                 th:src="'data:image/jpeg;base64,' + ${checkoutImageBase64}"
+                 class="image-preview"
+                 style="margin-bottom: 10px; display: block;"
+                 alt="Ảnh check-out từ DB">
+            <input type="file" id="checkoutImage" name="checkoutImage" accept="image/*">
+            <span id="checkoutFilename">Chưa chọn ảnh</span>
+            <img id="checkoutPreview" class="image-preview" alt="Xem trước ảnh check-out">
+        </div>
+    </div>
+    <div class="ai-result" style="margin-top: 20px;">
+        <strong>Nhận diện khuôn mặt bằng AI:</strong>
+        <span>Chưa xác thực</span>
+    </div>
+
+    <a th:href="@{/admin/roomBooked}" class="cancel-button">Hủy</a>
+    <button type="submit">Lưu thay đổi</button>
+</form>
+<script th:src="@{/admin/updateBooking/updateBooking.js}"></script>
+</body>
+</html>

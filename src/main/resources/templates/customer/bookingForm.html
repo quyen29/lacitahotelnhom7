@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin đặt phòng</title>
+    <link rel="stylesheet" th:href="@{/customer/bookingForm/bookingForm.css}">
+</head>
+<body>
+<div class="overlay" id="overlay"></div>
+<div class="booking-form" id="bookingForm">
+    <form th:method="POST" th:action="@{/booking/showBookingForm/submit}" id="bookingSubmitForm">
+        <input type="hidden" name="roomTypeId" th:value="${roomType.roomTypeID}">
+        <input type="hidden" name="price" th:value="${roomType.price}">
+        <input type="hidden" name="checkInDate" id="hiddenCheckInDate">
+        <input type="hidden" name="checkOutDate" id="hiddenCheckOutDate">
+        <input type="hidden" name="checkInHour" id="hiddenCheckInHour">
+        <input type="hidden" name="checkOutHour" id="hiddenCheckOutHour">
+        <input type="hidden" name="roomQuantity" id="hiddenRoomQuantity">
+        <input type="hidden" name="totalPeople" id="hiddenTotalPeople">
+        <input type="hidden" name="paymentMethod" id="hiddenPaymentMethod">
+        <input type="hidden" name="totalPrice" id="hiddenTotalPrice">
+        <h2>Thông tin đặt phòng</h2>
+        <div class="form-group">
+            <label>Thông tin phòng:</label>
+            <p>Loại phòng: <span th:text="${roomType.roomTypeName}"></span></p>
+            <p>Giá phòng: <span th:text="${#numbers.formatDecimal(roomType.price, 0, 'COMMA', 0, 'POINT')}"></span> VND</p>
+            <span id="priceValue" th:attr="data-price=${roomType.price}"></span>
+        </div>
+
+        <div class="form-group inline-group">
+            <label for="roomQuantity">Số lượng phòng đặt:</label>
+            <div class="inline-controls">
+                <select id="roomQuantitySelect">
+                    <option th:each="i : ${#numbers.sequence(1, available)}"
+                            th:value="${i}" th:text="${i}">1
+                    </option>
+                </select>
+                <span id="roomAvailability">Số lượng phòng trống: <span th:text="${available}"></span></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Thời gian nhận phòng:</label>
+            <div class="time-group">
+                <input type="date" id="checkInDate" name="checkInDate_input" required
+                       th:attr="min=${#temporals.format(#temporals.createNow().plusDays(1), 'yyyy-MM-dd')}">
+                <select id="checkInHour" name="checkInHour">
+                    <option th:each="i : ${#numbers.sequence(0, 23)}"
+                            th:value="${i}" th:text="${i + ':00'}">00:00
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Thời gian trả phòng:</label>
+            <div class="time-group">
+                <input type="date" id="checkOutDate" name="checkOutDate_input" required
+                       th:attr="min=${#temporals.format(#temporals.createNow().plusDays(1), 'yyyy-MM-dd')}">
+                <select id="checkOutHour" name="checkOutHour">
+                    <option th:each="i : ${#numbers.sequence(0, 23)}"
+                            th:value="${i}" th:text="${i + ':00'}">00:00
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group inline-group">
+            <label for="totalPeople">Số lượng người:</label>
+            <div class="inline-controls">
+                <select id="totalPeopleSelect" class="short-input"></select>
+                <span id="peopleLimit">Số lượng người tối đa mỗi phòng:
+                    <span id="maxPeople" th:text="${roomType.maxOccupancy}"></span>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label>Phương thức thanh toán:</label>
+                <select id="paymentMethodSelect">
+                    <option value="Chuyển khoản" selected>Chuyển khoản</option>
+                    <option value="Thẻ tín dụng">Thẻ tín dụng</option>
+                    <option value="Tiền mặt">Tiền mặt</option>
+                </select>
+            </div>
+            <small class="note">Lưu ý: Giá phòng được tính trên mỗi 12 tiếng và số lượng phòng đặt.</small>
+        </div>
+
+        <div class="price-display" id="priceDisplay">
+            Tổng giá: 0 VND (0 giờ, 0 phòng)
+        </div>
+
+        <div class="button-group">
+            <a class="btn cancel-btn" th:href="@{/booking}">HỦY</a>
+            <button type="submit" class="btn pay-btn">THANH TOÁN</button>
+        </div>
+    </form>
+</div>
+<script th:src="@{/customer/bookingForm/bookingForm.js}"></script>
+</body>
+</html>

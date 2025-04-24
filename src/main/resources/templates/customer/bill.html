@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa Đơn Thanh Toán</title>
+    <link rel="stylesheet" th:href="@{/customer/bill/bill.css}">
+</head>
+<body>
+<div class="container">
+    <div class="overlay" id="invoiceOverlay"></div>
+    <div class="invoice-form" id="invoiceForm">
+        <h2>Hóa Đơn Thanh Toán</h2>
+
+        <div class="form-group">
+            <label>ID hóa đơn:</label>
+            <p th:text="${bill.billID}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Thời gian xuất hóa đơn:</label>
+            <p th:text="${#temporals.format(bill.invoiceTime, 'dd/MM/yyyy HH:mm')}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Thông tin người đặt:</label>
+            <p th:text="'Họ tên: ' + ${customer.fullName}"></p>
+            <p th:text="'Số điện thoại: ' + ${customer.phoneNumber}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Thông tin phòng:</label>
+            <p th:text="'Loại phòng: ' + ${roomType.roomTypeName}"></p>
+            <p th:text="'Số lượng phòng: ' + ${roomQuantity}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Thời gian đặt phòng:</label>
+            <p th:text="'Thời gian nhận phòng: ' + ${#temporals.format(booking.checkInDate, 'dd/MM/yyyy HH:mm')}"></p>
+            <p th:text="'Thời gian trả phòng: ' + ${#temporals.format(booking.checkOutDate, 'dd/MM/yyyy HH:mm')}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Số lượng người:</label>
+            <p th:text="${booking.numberOfPeople}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Phương thức thanh toán:</label>
+            <p th:text="${bill.paymentMethod}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Tổng tiền:</label>
+            <p th:text="|${#numbers.formatDecimal(bill.total, 0, 'COMMA', 0, 'POINT')} VND|"></p>
+        </div>
+
+        <div class="actions">
+            <a th:href="@{/booking}" class="btn">XÁC NHẬN</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

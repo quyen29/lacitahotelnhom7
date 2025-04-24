@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Phòng Khách Sạn</title>
+    <link rel="stylesheet" th:href="@{/customer/booking/booking.css}">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a th:href="@{/}" class="back-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#000000" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+        <h1>Danh Sách Phòng</h1>
+    </div>
+    <div class="rooms-grid">
+        <div class="room-card" th:each="roomType : ${roomTypes}">
+            <div class="room-image">
+                <img th:src="${roomType.roomImage}" alt="Ảnh phòng" class="room-img"/>
+                <div class="room-availability">
+                    Còn trống:
+                    <span th:text="${room[roomType.roomTypeName]} ?: 0">0</span> phòng
+                </div>
+                <div class="room-info">
+                    <h3 th:text="'Phòng ' + ${roomType.roomTypeName}">Phòng</h3>
+                    <p>Diện tích: <span th:text="${roomType.area}">0</span> m<sup>2</sup></p>
+                    <p>Số lượng: <span th:text="${roomType.maxOccupancy}">0</span> người</p>
+                    <p>Giá phòng:
+                        <span th:text="${#numbers.formatDecimal(roomType.price, 0, 'COMMA', 0, 'POINT')}">0</span> VND /
+                        đêm
+                    </p>
+                </div>
+                <form th:action="@{/booking/showBookingForm}" method="GET">
+                    <input type="hidden" name="roomType" th:value="${roomType.roomTypeName}">
+                    <input type="hidden" name="price" th:value="${roomType.price}">
+                    <input type="hidden" name="available" th:value="${room[roomType.roomTypeName] ?: 0}">
+                    <button type="submit" class="book-button">
+                        ĐẶT PHÒNG
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/customer/booking/booking.js}"></script>
+</body>
+</html>

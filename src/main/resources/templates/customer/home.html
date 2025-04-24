@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>La CiTa - Trang Chủ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap"
+            rel="stylesheet"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/customer/home/home.css}"/>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">La CiTa</div>
+        <div class="menu">
+            <a th:href="@{/}">Trang chủ</a>
+            <a th:href="@{/booking}">Đặt phòng</a>
+            <a th:href="@{/contact}">Liên hệ</a>
+        </div>
+
+        <div class="user-menu">
+            <span sec:authorize="!isAuthenticated()">
+                        <div class="user-icon">👤</div>
+                        <div class="user-options" id="userOptions">
+                            <a type="submit" th:href="@{/showLoginPage}">Đăng nhập</a>
+                            <a type="submit" th:href="@{/register}">Đăng ký</a>
+                        </div>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                        <div class="user-icon">👤</div>
+                        <div class="user-options" id="userOptions">
+                            <a type="submit" th:href="@{/profile}">Chỉnh sửa hồ sơ</a>
+                            <a type="submit" th:href="@{/bookingHistory}">Xem lịch sử đặt phòng</a>
+                            <form th:action="@{/logout}" method="POST" class="logout-form">
+                                <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                            </form>
+                        </div>
+            </span>
+        </div>
+    </div>
+    <div class="intro">
+        <video th:src="@{/video/homeVideo.mp4}" class="intro-vid" playsinline autoplay loop muted></video>
+        <div class="text-invid">
+            <h1>LA CITA</h1>
+            <p>MANG ĐẾN TRẢI NGHIỆM LƯU TRÚ HOÀN HẢO VỚI DỊCH VỤ KHÁCH HÀNG VƯỢT TRỘI</p>
+        </div>
+    </div>
+    
+</header>
+<div class="intro-content">
+    <p>Khu nghỉ dưỡng có 122 phòng với nhiều hạng phòng gồm: President Triple Room,
+        Deluxe Ocean View, Deluxe King Ocean View, Deluxe Pool View, Deluxe Twin,
+        Vip Room, Standard Pool View, Superior Pool View và Family Room.
+        Tất cả các phòng được thiết kế đầy đủ tiện nghi, trang nhã, nhẹ nhàng
+        mang đến những trải nghiệm tuyệt vời cho một kỳ nghỉ trọn vẹn khi muốn tìm
+        về với biển và hòa mình vào thiên nhiên trong lành.
+    </p>
+</div>
+<div class="activity">
+    <div class="ex">
+        <div class="content">
+            <span>TRẢI NGHIỆM</span>
+            <h1>Khám phá động vật hoang dã và thiên nhiên hoang dã của châu Phi một cách gần gũi</h1>
+            <p>Hãy gặp gỡ những kỳ quan của hệ sinh thái Greater Kruger dưới sự hướng dẫn và
+                chăm sóc tận tình của đội ngũ safari đoạt giải thưởng, cả trong khu nghỉ dưỡng và
+                trong vùng bush. Thưởng thức không gian sang trọng, dịch vụ tuyệt vời và
+                trải nghiệm safari Nam Phi không gì sánh kịp.</p>
+        </div>
+        <img th:src="@{/images/experience.jpg}" alt="khám phá thiên nhiên">
+    </div>
+
+    <div class="guide">
+        <div class="content">
+            <span>HƯỚNG DẪN VIÊN</span>
+            <h1>Đội ngũ hướng dẫn viên giàu kinh nghiệm và trình độ chuyên môn cao nhất ở châu Phi</h1>
+            <p>Khi bạn chọn điểm đến safari, chính đội ngũ hướng dẫn viên sẽ tạo nên sự khác biệt
+                trong những kỷ niệm mà bạn mang về. Với kho tàng kiến thức phong phú và nhiều thế hệ
+                kinh nghiệm bẩm sinh về động vật hoang dã, khách của chúng tôi luôn được chăm sóc bởi
+                những người đam mê, có trình độ chuyên môn xuất sắc, giúp họ trở thành những chuyên gia
+                hàng đầu trong lĩnh vực của mình.</p>
+        </div>
+        <img th:src="@{/images/guide.jpg}" alt="hướng dẫn viên">
+    </div>
+
+    <div class="conservation">
+        <div class="content">
+            <span>BẢO TỒN</span>
+            <h1>Trung tâm Bảo tồn & Nghiên cứu</h1>
+            <p>Tham quan Trung tâm Bảo tồn & Nghiên cứu, nơi khoa học tiên tiến kết hợp với việc
+                bảo tồn động vật hoang dã – mang đến cho khách tham quan cái nhìn thú vị về
+                công việc quan trọng của chúng tôi trong việc bảo vệ sự đa dạng sinh học của Greater Kruger.</p>
+        </div>
+        <img th:src="@{/images/conservation.png}" alt="bảo tồn">
+    </div>
+</div>
+
+<div class="inspire">
+    <div class="title">
+        <h1>Cảm Hứng Du Lịch</h1>
+        <p>Hãy cùng nhau trốn đến một nơi hoàn hảo như trong tranh.</p>
+    </div>
+    <div class="pics">
+        <img class="pic-1" th:src="@{/images/pic-1.jpg}" alt="picture 1">
+        <img class="pic-2" th:src="@{/images/pic-2.jpg}" alt="picture 2">
+        <img class="pic-3" th:src="@{/images/pic-3.jpg}" alt="picture 3">
+        <img class="pic-4" th:src="@{/images/pic-4.jpg}" alt="picture 4">
+        <img class="pic-5" th:src="@{/images/pic-5.jpg}" alt="picture 5">
+    </div>
+    <div class="follow">
+        <ul class="follow">
+            <a href="">
+                <li class="follow">
+                    <img th:src="@{/images/ins.svg}" alt="instagram">
+                </li>
+                <li class="follow">Theo dõi chúng tôi tại @ptithcm.edu.vn</li>
+            </a>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 La CiTa Hotel. All rights reserved.</p>
+</footer>
+<script th:src="@{/customer/home/home.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu"
+        crossorigin="anonymous"></script>
+</body>
+</html>

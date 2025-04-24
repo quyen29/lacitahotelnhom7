@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin phòng</title>
+    <link rel="stylesheet" th:href="@{/admin/room/addRoom.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-Fo3rlrZj/kTcC1Xy+6iYOW1QaZ9+Y12eLhvhFI0aZz3TlEu5XN+1lFfYB5clQbkF+8qKpXjFbF5vXO6S+3jvFw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="dashboard">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>LA CITA</h3>
+            <p>Hệ thống quản lý</p>
+        </div>
+        <div class="sidebar-menu">
+            <a th:href="@{/admin/home}">
+                <div class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Tổng quan</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/room}">
+                <div class="menu-item active">
+                    <i class="fas fa-bed"></i>
+                    <span>Quản lý phòng</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/roomBooked}">
+                <div class="menu-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Quản lý đặt phòng</span>
+                </div>
+            </a>
+            <div class="menu-item">
+                <i class="fas fa-comments"></i>
+                <span>Phản hồi</span>
+            </div>
+            <div class="menu-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <form th:action="@{/logout}" method="POST" class="logout-form">
+                    <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="page-title">Quản lý phòng khách sạn</div>
+            <div class="user-info" onclick="openAdminInfo()">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <div>Admin</div>
+                    <small>Quản trị viên</small>
+                </div>
+            </div>
+        </div>
+        <div class="content-page active" id="room-management">
+            <div class="content-section">
+                <div class="section-header">
+                    <div class="section-title">Quản lý phòng khách sạn</div>
+                    <a th:href="@{/admin/room/add}" class="btn btn-success btn-sm mb-4" id="action-button">Thêm
+                        phòng</a>
+                </div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Loại phòng</label>
+                        <select>
+                            <option value="">Tất cả</option>
+                            <option value="standard">Standard</option>
+                            <option value="deluxe">Deluxe</option>
+                            <option value="suite">Suite</option>
+                            <option value="family">Family</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Trạng thái</label>
+                        <select>
+                            <option value="">Tất cả</option>
+                            <option value="available">Trống</option>
+                            <option value="booked">Đã đặt</option>
+                            <option value="occupied">Đã nhận</option>
+                            <option value="maintenance">Cần bảo trì</option>
+                        </select>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Loại phòng</th>
+                        <th>Số người tối đa</th>
+                        <th>Diện tích</th>
+                        <th>Giá phòng</th>
+                        <th>Mô tả</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="room : ${room}">
+                        <td th:text="${room.roomID}"></td>
+                        <td th:text="${room.roomType.roomTypeName}"></td>
+                        <td th:text="${room.roomType.maxOccupancy}"></td>
+                        <td th:text="${room.roomType.area}"></td>
+                        <td th:text="${room.roomType.price}"></td>
+                        <td th:text="${room.status}"></td>
+                        <td>
+                            <a th:href="@{/admin/room/delete(roomID=${room.roomID})}" class="btn btn-danger btn-sm w-25"
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa phòng này không?');">
+                                Xóa
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <div class="pagination-item active">1</div>
+                    <div class="pagination-item">2</div>
+                    <div class="pagination-item">3</div>
+                    <div class="pagination-item"><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Thông tin phòng</h3>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+        </div>
+
+        <form th:action="@{/admin/room/save}" th:object="${room}" method="POST">
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Loại phòng</label>
+                    <select th:field="*{roomType.roomTypeID}">
+                        <option th:each="rt : ${roomType}"
+                                th:value="${rt.roomTypeID}"
+                                th:text="${rt.roomTypeName}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select th:field="*{status}">
+                        <option value="Trống">Trống</option>
+                        <option value="Đã đặt">Đã đặt</option>
+                        <option value="Đang sử dụng">Đang sử dụng</option>
+                        <option value="Bảo trì">Bảo trì</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-secondary" th:href="@{/admin/room}">Hủy</a>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

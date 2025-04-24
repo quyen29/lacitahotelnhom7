@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/admin/home/infoAdmin.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>LA CITA</h3>
+            <p>Hệ thống quản lý</p>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-item active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Tổng quan</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Quản lý tài khoản người dùng</span>
+            </div>
+            <a th:href="@{/admin/room}">
+                <div class="menu-item">
+                    <i class="fas fa-bed"></i>
+                    <span>Quản lý phòng</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/roomBooked}">
+                <div class="menu-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Quản lý đặt phòng</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/feedback}">
+                <div class="menu-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Phản hồi</span>
+                </div>
+            </a>
+            <div class="menu-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <form th:action="@{/admin/logout}" method="POST" class="logout-form">
+                    <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="page-title">Tổng quan</div>
+            <div class="user-info" onclick="openAdminInfo()">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <div>Admin</div>
+                    <small>Quản trị viên</small>
+                </div>
+            </div>
+        </div>
+        <div class="content-page active" id="dashboard">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Tổng số phòng</h4>
+                        <p th:text="${totalRooms}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="adminInfoModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Thông tin Admin</h3>
+            <a class="modal-close" th:href="@{admin/home}"><i class="fas fa-times"></i></a>
+        </div>
+        <div class="modal-body">
+            <p><strong>Họ và tên: </strong>
+                <span th:text="${admin.fullName}"></span>
+            </p>
+            <p><strong>Số điện thoại: </strong>
+                <span th:text="${admin.phoneNumber}"></span>
+            </p>
+            <p><strong>Căn cước công dân: </strong>
+                <span th:text="${admin.ssn}"></span>
+            </p>
+            <p><strong>Ngày sinh: </strong>
+                <span th:text="${#dates.format(admin.DOB, 'dd/MM/yyyy')}"></span>
+            </p>
+            <p><strong>Email: </strong>
+                <span th:text="${admin.email}"></span>
+            </p>
+            <p><strong>Giới tính: </strong>
+                <span th:text="${admin.gender}"></span>
+            </p>
+            <p><strong>Vai trò: </strong><span>Quản trị viên</span></p>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-primary" th:href="@{/admin/home}">Đóng</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
