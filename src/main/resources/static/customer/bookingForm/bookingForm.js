@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const checkOutHour = document.getElementById("checkOutHour");
     const roomQuantity = document.getElementById("roomQuantitySelect");
     const priceDisplay = document.getElementById("priceDisplay");
+<<<<<<< HEAD
     const maxOccupancy = parseInt(document.getElementById("maxPeople").innerText) || 1;
 
     const adultInput = document.getElementById("adultInput");
@@ -56,6 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+=======
+    const pricePerRoom = parseFloat(document.getElementById("priceValue").dataset.price) || 0;
+    const peopleSelect = document.getElementById("totalPeopleSelect");
+    const maxOccupancy = parseInt(document.getElementById("maxPeople").innerText) || 1;
+
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
     function calculatePrice() {
         const inDate = checkInDate.value;
         const outDate = checkOutDate.value;
@@ -63,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const outHour = parseInt(checkOutHour.value);
         const quantity = parseInt(roomQuantity.value);
 
+<<<<<<< HEAD
         if (!inDate || !outDate || isNaN(inHour) || isNaN(outHour) || isNaN(quantity)) return;
 
         const start = new Date(inDate);
@@ -162,11 +170,68 @@ document.addEventListener("DOMContentLoaded", function () {
         const numberOfChild = teenVal + childVal + underThreeVal;
         const totalPeople = numberOfAdult + numberOfChild;
 
+=======
+        if (inDate && outDate && !isNaN(inHour) && !isNaN(outHour) && !isNaN(quantity)) {
+            const start = new Date(inDate);
+            start.setHours(inHour);
+
+            const end = new Date(outDate);
+            end.setHours(outHour);
+
+            const diffMs = end - start;
+            const diffHours = diffMs / (1000 * 60 * 60);
+
+            if (diffHours <= 0) {
+                priceDisplay.innerText = "Tổng giá: 0 VND (0 giờ, 0 phòng)";
+                document.getElementById("hiddenTotalPrice").value = 0;
+                return;
+            }
+
+            const slots = Math.ceil(diffHours / 12);
+            const total = pricePerRoom * slots * quantity;
+
+            priceDisplay.innerText = `Tổng giá: ${total.toLocaleString()} VND (${Math.floor(diffHours)} giờ, ${quantity} phòng)`;
+
+            document.getElementById("hiddenTotalPrice").value = total;
+        }
+    }
+
+    function updatePeopleOptions() {
+        const quantity = parseInt(roomQuantity.value);
+
+        if (!isNaN(quantity)) {
+            const min = quantity;
+            const max = quantity * maxOccupancy;
+
+            peopleSelect.innerHTML = "";
+            for (let i = min; i <= max; i++) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = i;
+                peopleSelect.appendChild(option);
+            }
+            peopleSelect.value = min;
+        }
+    }
+
+    [checkInDate, checkOutDate, checkInHour, checkOutHour, roomQuantity].forEach(input => {
+        input.addEventListener("change", () => {
+            calculatePrice();
+            updatePeopleOptions();
+        });
+    });
+
+    updatePeopleOptions();
+    calculatePrice();
+
+    document.getElementById("bookingSubmitForm").addEventListener("submit", function () {
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
         document.getElementById("hiddenCheckInDate").value = checkInDate.value;
         document.getElementById("hiddenCheckOutDate").value = checkOutDate.value;
         document.getElementById("hiddenCheckInHour").value = checkInHour.value;
         document.getElementById("hiddenCheckOutHour").value = checkOutHour.value;
         document.getElementById("hiddenRoomQuantity").value = roomQuantity.value;
+<<<<<<< HEAD
         document.getElementById("hiddenTotalPeople").value = totalPeople;
         document.getElementById("hiddenNumberOfAdult").value = numberOfAdult;
         document.getElementById("hiddenNumberOfChild").value = numberOfChild;
@@ -178,3 +243,9 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("hiddenUnderThree").value = underThreeVal;
     });
 });
+=======
+        document.getElementById("hiddenTotalPeople").value = peopleSelect.value;
+        document.getElementById("hiddenPaymentMethod").value = document.getElementById("paymentMethodSelect").value;
+    });
+});
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43

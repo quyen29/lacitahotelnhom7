@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* Các style cơ bản */
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 * {
     margin: 0;
     padding: 0;
@@ -17,10 +21,15 @@
   
   .header {
     display: flex;
+<<<<<<< HEAD
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
     position: relative;
+=======
+    align-items: center;
+    margin-bottom: 30px;
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   }
   
   .back-button {
@@ -38,9 +47,12 @@
   
   h1 {
     color: #e3e6e8;
+<<<<<<< HEAD
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+=======
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   }
   
   .rooms-grid {
@@ -275,6 +287,7 @@
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
   }
+<<<<<<< HEAD
 
   .book-button {
       position: absolute;
@@ -297,3 +310,6 @@
       cursor: not-allowed;
       pointer-events: none;
   }
+=======
+  
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43

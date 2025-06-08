@@ -49,10 +49,13 @@
     color: #e0b973;
   }
 
+<<<<<<< HEAD
   .menu a:first-child {
     color: #e0b973;
   }
 
+=======
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   .user-menu {
     position: relative;
   }
@@ -130,9 +133,14 @@
   }
 
   .intro video {
+<<<<<<< HEAD
       width: calc(100vw);
       height: calc(100vh - 76px);
       object-fit: cover;
+=======
+      width: 100%;
+      height: auto;
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   }
 
   .intro .text-invid {
@@ -184,6 +192,7 @@
 
   .activity h1 {
     margin: 16px 0;
+<<<<<<< HEAD
     font-size: 30px;
     font-weight: 400;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -193,6 +202,13 @@
     font-weight: 400;
   }
 
+=======
+    font-weight: 350;
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   .activity p {
     line-height: 23px;
     margin: 5px 0 23px;
@@ -200,7 +216,11 @@
 
   .activity img {
     width: 100%;
+<<<<<<< HEAD
     height: 40vmax;
+=======
+    height: 50vmax;
+>>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
     object-fit: cover;
   }
 
