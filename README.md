@@ -2,7 +2,7 @@
 
 Ứng dụng quản lý khách sạn sử dụng **Java Spring Boot**, **Thymeleaf**, **HTML/CSS/JS**, **Python** và **MySQL**, hỗ trợ các chức năng từ quản lý người dùng, đặt phòng đến phản hồi và báo cáo doanh thu.
 
-![Hotel Management Screenshot](./screenshots/overview.png)
+![Hotel Management Screenshot](/src/main/resources/static/images/banner.png)
 
 ---
 
