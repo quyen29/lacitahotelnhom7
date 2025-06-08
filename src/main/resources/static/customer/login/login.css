@@ -18,13 +18,8 @@
     background-color: #1f1f1f;
     color: white;
     position: sticky;
-<<<<<<< HEAD
       top: 0;
       z-index: 100;
-=======
-    top: 0;
-    z-index: 100;
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   }
   .logo {
     font-size: 1.8rem;
@@ -32,12 +27,9 @@
     color: white;
     text-decoration: none;
   }
-<<<<<<< HEAD
   .logo-options {
   display: none
   }
-=======
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   .menu {
     display: flex;
     gap: 30px;
@@ -108,7 +100,6 @@
   }
   /* Phần hero với background giống trang chủ */
   .hero {
-<<<<<<< HEAD
     flex: 1;
     background-image: url("https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1470&auto=format&fit=crop");
     background-size: cover;
@@ -117,13 +108,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-=======
-    background-image: url("https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1470&auto=format&fit=crop");
-    background-size: cover;
-    background-position: center;
-    height: calc(100vh - 76px);
-    position: relative;
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   }
   .overlay {
     position: absolute;
@@ -139,11 +123,7 @@
   /* Style dành cho form đăng nhập */
   .form-container {
     background: rgba(255, 255, 255, 0.9);
-<<<<<<< HEAD
     padding: 25px 20px;
-=======
-    padding: 25px;
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     width: 400px;
@@ -182,29 +162,6 @@
   .form-button:hover {
     background-color: #333;
   }
-<<<<<<< HEAD
-=======
-  .form-button.cancel {
-    background-color: #888;
-  }
-  .form-button.cancel:hover {
-    background-color: #666;
-  }
-  .error-message {
-    color: #ff3333;
-    font-size: 0.9rem;
-    margin-top: -10px;
-    margin-bottom: 10px;
-    display: none;
-  }
-  #forgotPasswordLink {
-    margin-top: 10px;
-    text-align: center;
-    cursor: pointer;
-    color: #1f1f1f;
-    text-decoration: underline;
-  }
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   .back-link {
     text-align: center;
     margin-top: 15px;
@@ -212,53 +169,12 @@
     text-decoration: none;
     color: #1f1f1f;
   }
-<<<<<<< HEAD
-=======
-  /* Modal Quên mật khẩu */
-  .form-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 999;
-    animation: fadeIn 0.3s;
-  }
-  .forgot-form-container {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    width: 400px;
-    max-width: 90%;
-    animation: scaleIn 0.3s;
-  }
-  @keyframes scaleIn {
-    from {
-      transform: translate(-50%, -50%) scale(0.8);
-      opacity: 0;
-    }
-    to {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-    }
-  }
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   footer {
     background-color: #1f1f1f;
     color: white;
     padding: 20px 40px;
     text-align: center;
   }
-<<<<<<< HEAD
   footer p {
     margin: 0;
   }
@@ -336,8 +252,6 @@
     }
   }
 
-=======
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   @media (max-width: 600px) {
     .form-container {
       width: 90%;

@@ -1,0 +1,7 @@
+wheel
+Flask
+flask-cors
+deepface
+numpy
+Pillow
+pymysql

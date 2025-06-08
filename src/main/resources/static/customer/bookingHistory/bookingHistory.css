@@ -24,21 +24,15 @@
 }
 
 body {
-<<<<<<< HEAD
   font-family: "Poppins", sans-serif;
     overflow-x: hidden;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-=======
-  background-color: #f9f9f9;
-  color: var(--text-color);
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 }
 
 /* ===== HEADER / NAVBAR ===== */
 .navbar {
-<<<<<<< HEAD
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,43 +61,11 @@ body {
 }
 .menu a:hover {
   color: #e0b973;
-=======
-  background-color: var(--primary-color);
-  color: white;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.logo {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.menu {
-  display: flex;
-  gap: 20px;
-}
-
-.menu a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.menu a:hover {
-  color: var(--secondary-color);
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 }
 
 .user-menu {
   position: relative;
 }
-<<<<<<< HEAD
 .user-icon {
   cursor: pointer;
   font-size: 30px;
@@ -154,31 +116,10 @@ body {
 .logout-btn:hover {
   background-color: #575757;
   transform: translateX(3px);
-=======
-
-.user-icon {
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.user-options {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 120%;
-  background-color: white;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 10px;
-  min-width: 150px;
-  z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 }
 
 .user-menu:hover .user-options {
   display: block;
-<<<<<<< HEAD
   animation: fadeIn 0.3s;
 }
 @keyframes fadeIn {
@@ -190,66 +131,17 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-=======
-}
-
-.user-options a,
-.user-options .logout-btn {
-  display: block;
-  padding: 8px 10px;
-  text-decoration: none;
-  color: var(--text-color);
-  font-size: 14px;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-}
-
-.user-options a:hover,
-.user-options .logout-btn:hover {
-  background-color: var(--secondary-color);
-  color: white;
-  border-radius: 4px;
-}
-
-/* ==== INTRO TEXT (Thay cho video) ==== */
-.intro-text {
-  background-color: var(--secondary-color);
-  text-align: center;
-  padding: 40px 20px;
-  color: white;
-}
-
-.intro-text h1 {
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.intro-text p {
-  font-size: 16px;
-  font-weight: 300;
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 }
 
 /* ===== LỊCH SỬ ĐẶT PHÒNG ===== */
 .container {
-<<<<<<< HEAD
   max-width: 95%;
-=======
-  max-width: 1200px;
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
   margin: 40px auto;
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 30px;
-<<<<<<< HEAD
   flex: 1;
-=======
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 }
 
 .container h2 {
@@ -280,7 +172,6 @@ tr:hover {
 }
 
 .btn-view {
-<<<<<<< HEAD
   display: inline-block;
   padding: 10px 20px;
   border-radius: 8px;
@@ -309,20 +200,6 @@ footer {
 
 footer p {
   margin: 0;
-=======
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
-
-.btn-view:hover {
-  background-color: #2c5282;
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 }
 
 @media (max-width: 768px) {

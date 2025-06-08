@@ -13,13 +13,8 @@ import vos.hoteldemo.entity.Account;
 import vos.hoteldemo.entity.Customer;
 import vos.hoteldemo.entity.Role;
 
-<<<<<<< HEAD
 import java.sql.Timestamp;
 import java.util.*;
-=======
-import java.util.Collections;
-import java.util.Collection;
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 
 @Service
 public class CustomerServiceImpl implements CustomerService, org.springframework.security.core.userdetails.UserDetailsService {
@@ -62,7 +57,6 @@ public class CustomerServiceImpl implements CustomerService, org.springframework
         Collection<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(role.getRoleName()));
         return new User(account.getAccountID(), account.getPassword(), authorities);
     }
-<<<<<<< HEAD
 
     public List<Map<String, Object>> getCustomerSummaryData() {
         List<Object[]> raw = customerRepository.findCustomerSummary();
@@ -85,6 +79,4 @@ public class CustomerServiceImpl implements CustomerService, org.springframework
     public Customer findById(int id) {
         return customerRepository.findById(id).orElse(null);
     }
-=======
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 }

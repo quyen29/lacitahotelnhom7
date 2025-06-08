@@ -10,7 +10,6 @@ import vos.hoteldemo.entity.Booking;
 import vos.hoteldemo.entity.Customer;
 import vos.hoteldemo.entity.RoomType;
 
-<<<<<<< HEAD
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -18,17 +17,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-=======
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 @Service
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
-<<<<<<< HEAD
     @Autowired
     private QRCodeService qrCodeService;
-=======
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
 
     public void sendVerificationEmail(String toEmail, String verificationCode) {
         try {
@@ -48,7 +42,6 @@ public class EmailService {
         }
     }
 
-<<<<<<< HEAD
     public void sendInvoiceEmailWithQR(
             String toEmail,
             Bill bill,
@@ -60,15 +53,11 @@ public class EmailService {
             String paymentMethodRaw,
             List<Integer> roomIds
     ) {
-=======
-    public void sendInvoiceEmail(String toEmail, Bill bill, Booking booking, Customer customer, RoomType roomType, int roomQuantity) {
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom("lacitahotelnhom7@gmail.com", "La CiTa Hotel");
             helper.setTo(toEmail);
-<<<<<<< HEAD
             helper.setSubject("Hóa đơn thanh toán - La CiTa Hotel");
             String roomIdText = roomIds.stream().map(Object::toString).collect(Collectors.joining(", "));
             String invoiceTime = bill.getInvoiceTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
@@ -147,40 +136,3 @@ public class EmailService {
         }
     }
 }
-=======
-            helper.setSubject("Hóa đơn đặt phòng - La CiTa Hotel");
-            String content = """
-                        <h2>Hóa Đơn Thanh Toán</h2>
-                        <p><strong>ID hóa đơn:</strong> %d</p>
-                        <p><strong>Thời gian xuất hóa đơn:</strong> %s</p>
-                        <p><strong>Họ tên người đặt:</strong> %s</p>
-                        <p><strong>Số điện thoại:</strong> %s</p>
-                        <p><strong>Loại phòng:</strong> %s</p>
-                        <p><strong>Số lượng phòng:</strong> %d</p>
-                        <p><strong>Thời gian nhận phòng:</strong> %s</p>
-                        <p><strong>Thời gian trả phòng:</strong> %s</p>
-                        <p><strong>Số lượng người:</strong> %d</p>
-                        <p><strong>Phương thức thanh toán:</strong> %s</p>
-                        <p><strong>Tổng tiền:</strong> %.0f VND</p>
-                    """.formatted(
-                    bill.getBillID(),
-                    bill.getInvoiceTime().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
-                    customer.getFullName(),
-                    customer.getPhoneNumber(),
-                    roomType.getRoomTypeName(),
-                    roomQuantity,
-                    booking.getCheckInDate().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
-                    booking.getCheckOutDate().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
-                    booking.getNumberOfPeople(),
-                    bill.getPaymentMethod(),
-                    bill.getTotal()
-            );
-            helper.setText(content, true);
-            mailSender.send(message);
-        } catch (Exception e) {
-            System.err.println("Gửi email hóa đơn thất bại: " + e.getMessage());
-        }
-    }
-}
-
->>>>>>> 6db47b97814a1f9e6915b6f5424c8df81c3b6c43
