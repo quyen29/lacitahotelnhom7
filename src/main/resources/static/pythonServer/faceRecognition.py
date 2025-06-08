@@ -12,8 +12,8 @@ CORS(app)
 def get_checkin_image_from_db(room_id, booking_id):
     connection = pymysql.connect(
         host="localhost",
-        user="vos",
-        password="vos!12345678",
+        user=YOUR_USER,
+        password=YOUR_PASSWORD,
         database="bookingsystemdb",
         cursorclass=pymysql.cursors.DictCursor
     )

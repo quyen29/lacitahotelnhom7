@@ -138,7 +138,7 @@ public class AdminController {
                               @RequestParam(required = false) String status,
                               @RequestParam(defaultValue = "0") int page,
                               Model model) {
-        int size = 5;
+        int size = 4;
         Page<Room> roomPage = roomService.filterRoomsPaged(roomTypeName, status, page, size);
         List<Room> rooms = roomPage.getContent();
         for (Room r : rooms) {

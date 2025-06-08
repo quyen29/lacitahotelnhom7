@@ -5,3 +5,5 @@ deepface
 numpy
 Pillow
 pymysql
+cryptography
+tensorflow
