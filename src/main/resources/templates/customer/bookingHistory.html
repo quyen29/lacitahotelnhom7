@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Lịch sử đặt phòng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/customer/bookingHistory/bookingHistory.css}"/>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">La CiTa</div>
+        <div class="menu">
+            <a th:href="@{/}">Trang chủ</a>
+            <a th:href="@{/booking}">Đặt phòng</a>
+            <a th:href="@{/promotion}">Khuyến mãi</a>
+            <a th:href="@{/contact}">Liên hệ</a>
+        </div>
+
+        <div class="user-menu">
+            <span sec:authorize="!isAuthenticated()">
+                <div class="user-icon">👤</div>
+                <div class="user-options" id="userOptions">
+                    <a th:href="@{/showLoginPage}">Đăng nhập</a>
+                    <a th:href="@{/register}">Đăng ký</a>
+                </div>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <div class="user-icon">👤</div>
+                <div class="user-options" id="userOptions">
+                    <a th:href="@{/profile}">Chỉnh sửa hồ sơ</a>
+                    <a th:href="@{/bookingHistory}">Xem lịch sử đặt phòng</a>
+                    <form th:action="@{/logout}" method="POST" class="logout-form">
+                        <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                    </form>
+                </div>
+            </span>
+        </div>
+    </div>
+</header>
+
+<div class="container mt-5">
+    <h2>Lịch sử đặt phòng</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Hóa đơn</th>
+            <th>Booking ID</th>
+            <th>Loại phòng</th>
+            <th>Ngày nhận phòng</th>
+            <th>Ngày trả phòng</th>
+            <th>Trạng thái</th>
+            <th>Tổng số người</th>
+            <th>Tổng số phòng</th>
+            <th>Tổng tiền</th>
+            <th>Phản hồi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="booking : ${bookings}">
+            <td th:text="${booking.bill.billID}"></td>
+            <td th:text="${booking.bookingID}"></td>
+            <td>
+                <span th:if="${!booking.rooms.empty}" th:text="${booking.rooms.get(0).roomType.roomTypeName}"></span>
+                <span th:if="${booking.rooms.empty}"></span>
+            </td>
+            <td th:text="${#strings.replace(booking.checkInDate.toString(), 'T', ' ')}"></td>
+            <td th:text="${#strings.replace(booking.checkOutDate.toString(), 'T', ' ')}"></td>
+            <td th:text="${booking.roomStatus}"></td>
+            <td th:text="${booking.numberOfAdult + booking.numberOfChild}"></td>
+            <td th:text="${booking.rooms.size()}"></td>
+            <td th:text="${#numbers.formatDecimal(totalMap[booking.bookingID], 0, 'COMMA', 0, 'POINT') + ' VND'}"> VND
+            </td>
+            <td>
+                <div th:if="${hasFeedbackMap[booking.bookingID]}">
+                    <form th:action="@{/feedback/view}" method="get">
+                        <input type="hidden" name="billID" th:value="${booking.bill.billID}" />
+                        <button type="submit" class="btn btn-primary">Xem phản hồi</button>
+                    </form>
+                </div>
+                <div th:unless="${hasFeedbackMap[booking.bookingID]}">
+                    <form th:action="@{/feedback}" method="get">
+                        <input type="hidden" name="billID" th:value="${booking.bill.billID}" />
+                        <button type="submit" class="btn btn-primary">Gửi phản hồi</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <p>&copy; 2025 La CiTa Hotel. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu"
+        crossorigin="anonymous"></script>
+</body>
+</html>

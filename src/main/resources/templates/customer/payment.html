@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>La CiTa - Thanh Toán</title>
+    <link rel="stylesheet" th:href="@{/customer/payment/payment.css}"/>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">La CiTa</div>
+        <div class="menu">
+            <a th:href="@{/}">Trang chủ</a>
+            <a th:href="@{/booking}" class="active">Đặt phòng</a>
+            <a th:href="@{/promotion}">Khuyến mãi</a>
+            <a th:href="@{/contact}">Liên hệ</a>
+        </div>
+
+        <div class="user-menu">
+            <span sec:authorize="!isAuthenticated()">
+                        <div class="user-icon">👤</div>
+                        <div class="user-options" id="userOptions">
+                            <a type="submit" th:href="@{/showLoginPage}">Đăng nhập</a>
+                            <a type="submit" th:href="@{/register}">Đăng ký</a>
+                        </div>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                        <div class="user-icon">👤</div>
+                        <div class="user-options" id="userOptions">
+                            <a type="submit" th:href="@{/profile}">Chỉnh sửa hồ sơ</a>
+                            <a type="submit" th:href="@{/bookingHistory}">Xem lịch sử đặt phòng</a>
+                            <form th:action="@{/logout}" method="POST" class="logout-form">
+                                <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                            </form>
+                        </div>
+            </span>
+        </div>
+    </div>
+</header>
+<div class="intro-text">
+        <h1>THANH TOÁN</h1>
+    </div>
+<div class="payment-wrapper">
+    <div class="payment-left">
+        <h3>Thông tin khách hàng</h3>
+        <p><strong>Họ tên:</strong> <span th:text="${customer.fullName}"></span></p>
+        <p><strong>Số điện thoại:</strong> <span th:text="${customer.phoneNumber}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+
+        <h3>Thông tin đặt phòng</h3>
+        <p><strong>Loại phòng:</strong> <span th:text="${booking.roomType.roomTypeName}"></span></p>
+        <p><strong>Số lượng phòng:</strong> <span th:text="${booking.roomQuantity}"></span></p>
+        <p><strong>Thời gian nhận phòng:</strong> <span th:text="${#temporals.format(booking.checkInDate, 'dd/MM/yyyy HH:mm')}"></span></p>
+        <p><strong>Thời gian trả phòng:</strong> <span th:text="${#temporals.format(booking.checkOutDate, 'dd/MM/yyyy HH:mm')}"></span></p>
+        <p><strong>Số người lớn (18-59 tuổi):</strong> <span th:text="${booking.adult}"></span></p>
+        <p><strong>Số người cao tuổi (trên 60 tuổi):</strong> <span th:text="${booking.elder}"></span></p>
+        <p><strong>Số trẻ vị thành niên (12-17 tuổi):</strong> <span th:text="${booking.teen}"></span></p>
+        <p><strong>Số trẻ em (3-11 tuổi):</strong> <span th:text="${booking.child}"></span></p>
+        <p><strong>Số trẻ dưới 3 tuổi (0-2 tuổi):</strong> <span th:text="${booking.underThree}"></span></p>
+        <p><strong>Tổng tiền:</strong>
+            <span id="totalPrice"
+                  th:text="${#numbers.formatDecimal(booking.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VND'"></span>
+        </p>
+    </div>
+
+    <div class="payment-right">
+        <form class="payment-form" th:action="@{/booking/showBookingForm/qrpay}" method="POST">
+            <input type="hidden" name="roomTypeId" th:value="${booking.roomType.roomTypeID}"/>
+            <input type="hidden" name="price" th:value="${booking.totalPrice}"/>
+            <input type="hidden" name="checkInDate" th:value="${#temporals.format(booking.checkInDate, 'yyyy-MM-dd')}"/>
+            <input type="hidden" name="checkOutDate"
+                   th:value="${#temporals.format(booking.checkOutDate, 'yyyy-MM-dd')}"/>
+            <input type="hidden" name="checkInHour" th:value="${#temporals.format(booking.checkInDate, 'HH')}"/>
+            <input type="hidden" name="checkOutHour" th:value="${#temporals.format(booking.checkOutDate, 'HH')}"/>
+            <input type="hidden" name="roomQuantity" th:value="${booking.roomQuantity}"/>
+            <input type="hidden" name="numberOfAdult" th:value="${booking.numberOfAdult}"/>
+            <input type="hidden" name="numberOfChild" th:value="${booking.numberOfChild}"/>
+            <input type="hidden" name="totalPrice" th:value="${booking.totalPrice}"/>
+            <div class="form-group">
+                <label for="voucherSelect">Chọn voucher giảm giá:</label>
+                <select id="voucherSelect" name="voucherId">
+                    <option value="">-- Không áp dụng --</option>
+                    <option th:each="voucher : ${voucherList}"
+                            th:value="${voucher.voucherID}"
+                            th:text="${voucher.code + ' - Giảm ' + voucher.discountPercent + '%'}">
+                    </option>
+                </select>
+            </div>
+            <h3>Chọn phương thức thanh toán</h3>
+            <label>
+                <input type="radio" name="paymentMethod" value="cash" checked/>
+                Thanh toán tiền mặt tại quầy
+            </label>
+            <label>
+                <input type="radio" name="paymentMethod" value="bank"/>
+                Chuyển khoản ngân hàng
+            </label>
+
+            <div class="bank-wrapper">
+                <h4>Chọn nền tảng thanh toán</h4>
+                <div class="bank-options">
+                    <label class="bank-option"><input type="radio" name="platform" value="momo" checked><img
+                            th:src="@{/images/logo-momo.png}" alt="Momo"/><span>Momo</span></label>
+                    <label class="bank-option"><input type="radio" name="platform" value="vnpay"><img
+                            th:src="@{/images/logo-vnpay.png}" alt="VNPAY"/><span>VNPAY</span></label>
+                    <label class="bank-option"><input type="radio" name="platform" value="vietcombank"><img
+                            th:src="@{/images/logo-vietcombank.png}" alt="Vietcombank"/><span>Vietcombank</span></label>
+                    <label class="bank-option"><input type="radio" name="platform" value="mbbank"><img
+                            th:src="@{/images/logo-mbbank.png}" alt="MB Bank"/><span>MB Bank</span></label>
+                    <label class="bank-option"><input type="radio" name="platform" value="techcombank"><img
+                            th:src="@{/images/logo-techcombank.png}" alt="Techcombank"/><span>Techcombank</span></label>
+                    <label class="bank-option"><input type="radio" name="platform" value="bidv"><img
+                            th:src="@{/images/logo-bidv.png}" alt="BIDV"/><span>BIDV</span></label>
+                </div>
+            </div>
+
+            <button type="submit" id="submitButton">Thanh toán</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 La CiTa Hotel. All rights reserved.</p>
+</footer>
+
+<script th:src="@{/customer/payment/payment.js}"></script>
+</body>
+</html>

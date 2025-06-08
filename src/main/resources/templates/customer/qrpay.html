@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>La CiTa - Thanh Toán QR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/customer/qrpay/qrpay.css}"/>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">La CiTa</div>
+        <div class="menu">
+            <a th:href="@{/}">Trang chủ</a>
+            <a th:href="@{/booking}" class="active">Đặt phòng</a>
+            <a th:href="@{/promotion}">Khuyến mãi</a>
+            <a th:href="@{/contact}">Liên hệ</a>
+        </div>
+        <div class="user-menu">
+            <span sec:authorize="!isAuthenticated()">
+                <div class="user-icon">👤</div>
+                <div class="user-options" id="userOptions">
+                    <a type="submit" th:href="@{/showLoginPage}">Đăng nhập</a>
+                    <a type="submit" th:href="@{/register}">Đăng ký</a>
+                </div>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <div class="user-icon">👤</div>
+                <div class="user-options" id="userOptions">
+                    <a type="submit" th:href="@{/profile}">Chỉnh sửa hồ sơ</a>
+                    <a type="submit" th:href="@{/bookingHistory}">Xem lịch sử đặt phòng</a>
+                    <form th:action="@{/logout}" method="POST" class="logout-form">
+                        <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                    </form>
+                </div>
+            </span>
+        </div>
+    </div>
+</header>
+
+<div class="payment-wrapper">
+    <div class="qr-container">
+        <p class="instruction">
+            Vui lòng thanh toán mã QR qua
+            <strong th:text="${platform}">[Tên nền tảng]</strong>
+        </p>
+        <img th:src="@{${qrImagePath}}" alt="QR Thanh toán" class="qr-image"/>
+
+        <form th:action="@{/booking/showBookingForm/submit}" method="POST" th:if="${booking != null}">
+            <input type="hidden" name="roomTypeId" th:value="${booking.roomType != null ? booking.roomType.roomTypeID : 0}"/>
+            <input type="hidden" name="price" th:value="${booking.totalPrice}"/>
+            <input type="hidden" name="checkInDate" th:value="${#temporals.format(booking.checkInDate, 'yyyy-MM-dd')}"/>
+            <input type="hidden" name="checkOutDate" th:value="${#temporals.format(booking.checkOutDate, 'yyyy-MM-dd')}"/>
+            <input type="hidden" name="checkInHour" th:value="${#temporals.format(booking.checkInDate, 'HH')}"/>
+            <input type="hidden" name="checkOutHour" th:value="${#temporals.format(booking.checkOutDate, 'HH')}"/>
+            <input type="hidden" name="roomQuantity" th:value="${booking.roomQuantity}"/>
+            <input type="hidden" name="numberOfAdult" th:value="${booking.numberOfAdult}"/>
+            <input type="hidden" name="numberOfChild" th:value="${booking.numberOfChild}"/>
+            <input type="hidden" name="paymentMethod" th:value="${paymentMethod}" />
+            <input type="hidden" name="platform" th:value="${platform}" />
+            <input type="hidden" name="totalPrice" th:value="${booking.totalPrice}"/>
+            <button type="submit" class="confirm-btn">Xác nhận thanh toán</button>
+        </form>
+
+        <div th:if="${booking == null}">
+            <p class="error-text" style="color: red; font-weight: bold;">
+                Dữ liệu thanh toán bị thiếu. Vui lòng thử lại từ đầu.
+            </p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 La CiTa Hotel. All rights reserved.</p>
+</footer>
+<script th:src="@{/customer/qrpay/qrpay.js}"></script>
+</body>
+</html>

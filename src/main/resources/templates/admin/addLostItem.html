@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${lostItem.itemID != 0} ? 'Chỉnh sửa đồ thất lạc' : 'Thêm đồ thất lạc'">Quản lý đồ thất lạc</title>
+    <link rel="stylesheet" th:href="@{/admin/lostItem/addLostItem.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="main-content">
+        <div class="header">
+            <div class="page-title"
+                 th:text="${lostItem.itemID != 0} ? 'Chỉnh sửa đồ thất lạc' : 'Thêm đồ thất lạc'"></div>
+        </div>
+        <div class="content-page active">
+            <div class="content-section">
+                <form th:action="@{/admin/lostItem/save}" th:object="${lostItem}" method="POST"
+                      enctype="multipart/form-data" class="form-container">
+
+                    <div class="form-group" th:if="*{itemID} != 0">
+                        <label>ID Đồ vật</label>
+                        <input type="number" th:field="*{itemID}" class="form-control" disabled/>
+                        <input type="hidden" th:field="*{itemID}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Tên đồ vật</label>
+                        <input type="text" th:field="*{name}" class="form-control" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="roomID">ID Phòng</label>
+                        <input type="number" th:field="*{roomID}" class="form-control" min="0" srequired/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Ảnh đồ vật</label>
+                        <input type="file" name="imageFile" class="form-control" accept="image/*"/>
+                    </div>
+
+                    <div class="form-group" th:if="*{itemID} != 0">
+                        <label>Ảnh hiện tại</label><br>
+                        <img th:src="@{'/admin/lostItem/image/' + ${lostItem.itemID}}" alt="Ảnh đồ vật"
+                             style="max-width: 200px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Mô tả</label>
+                        <textarea th:field="*{description}" class="form-control" rows="4"
+                                  placeholder="Mô tả chi tiết đồ vật"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Tình trạng</label>
+                        <input type="text" th:field="*{status}" class="form-control" required/>
+                    </div>
+
+                    <div class="form-actions">
+                        <a class="btn btn-secondary" th:href="@{/admin/lostItem}">Hủy</a>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

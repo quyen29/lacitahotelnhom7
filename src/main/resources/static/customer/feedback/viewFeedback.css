@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&display=swap');
+
+:root {
+    --font-para: "Montserrat", sans-serif;
+    --text-color: rgb(102, 99, 102);
+    --hover-color: rgb(176, 146, 68);
+    --bg-color: rgb(242 242 242);
+    --primary-color: #3a6ea5;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-image: url('/images/home.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 700px;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+  
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 28px;
+    font-weight: 600;
+    color: black;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.feedback-item {
+    margin-bottom: 30px;
+}
+
+.feedback-item h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 8px;
+}
+
+.feedback-item p {
+    font-size: 15px;
+    padding: 14px 18px;
+    background-color: #f4f6f8;
+    border-left: 5px solid #3498db;
+    border-radius: 10px;
+    color: #444;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.star-rating {
+    font-size: 20px;
+    color: #f39c12;
+    padding: 10px 0;
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn-secondary {
+    display: inline-block;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background-color: #3498db;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    padding: 10px 40px;
+}
+
+.btn-secondary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}

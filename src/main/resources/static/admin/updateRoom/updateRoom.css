@@ -1,0 +1,105 @@
+:root {
+    --primary: #3498db;
+    --secondary: #2c3e50;
+    --background: #f8f9fa;
+    --text-color: #333;
+    --light: #ecf0f1;
+    --danger: #e74c3c;
+    --success: #2ecc71;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url('/images/home.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--background); 
+}
+.edit-room-form {
+    background-color: var(--light);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+.edit-room-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--secondary);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.edit-room-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.edit-room-form select,
+.edit-room-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.edit-room-form select:focus,
+.edit-room-form input:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.cancel-button {
+    background-color: transparent;
+    border: 2px solid var(--secondary);
+    color: var(--secondary);
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: var(--secondary);
+    color: white;
+}
+
+button[type="submit"] {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary);
+}
