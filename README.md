@@ -15,7 +15,6 @@
 - [🐞 Bugs và vấn đề](#-bugs-và-các-vấn-đề)
 - [🚧 Tính năng đang phát triển](#-tính-năng-đang-phát-triển)
 - [👨‍💻 Tác giả](#-tác-giả)
-- [📄 Giấy phép](#-giấy-phép)
 
 ---
 
@@ -36,6 +35,7 @@
 - Xem ưu đãi và liên hệ
 - Đặt phòng, thanh toán, và in hóa đơn
 - Gửi phản hồi và đánh giá chất lượng dịch vụ
+- Chỉnh sửa thông tin cá nhân
 
 ---
 
@@ -44,7 +44,7 @@
 ### a. Clone dự án
 
 ```bash
-git clone <your-repo-link>
+git clone https://github.com/quyen29/lacitahotelnhom7.git
 ```
 
 ### b. Cấu hình cơ sở dữ liệu
@@ -55,6 +55,18 @@ Mở file `src/main/resources/application.properties` và cập nhật:
 spring.datasource.url=jdbc:mysql://localhost:3306/bookingsystemdb
 spring.datasource.username=YOUR_USERNAME
 spring.datasource.password=YOUR_PASSWORD
+```
+
+Mở file `src/main/resources/static/pythonServer/faceRecognition.py` và cập nhật:
+
+```properties
+connection = pymysql.connect(
+        host="localhost",
+        user=YOUR_USERNAME,
+        password=YOUR_PASSWORD,
+        database="bookingsystemdb",
+        cursorclass=pymysql.cursors.DictCursor
+)
 ```
 
 ### c. Chạy ứng dụng
@@ -99,7 +111,7 @@ Xem tài khoản quản trị trong file `dataSample.sql`.
 
 ## 🐞 Bugs và các vấn đề
 
-Gặp lỗi hoặc có thắc mắc? Hãy tạo [Issue](https://github.com/your-repo/issues) trên GitHub để được hỗ trợ.
+Gặp lỗi hoặc có thắc mắc? Hãy tạo [Issue](https://github.com/quyen29/lacitahotelnhom7/issues) trên GitHub để được hỗ trợ.
 
 ---
 
