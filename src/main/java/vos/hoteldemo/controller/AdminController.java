@@ -25,6 +25,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -508,8 +509,20 @@ public class AdminController {
     }
 
     @GetMapping("/feedback")
-    public String showFeedback(Model model) {
+    public String showFeedback(@RequestParam(required = false) String searchCustomer,
+                               @RequestParam(required = false) String searchTitle,
+                               Model model) {
         List<Feedback> feedbackList = feedbackService.getAllFeedback();
+        if (searchCustomer != null && !searchCustomer.isEmpty()) {
+            feedbackList = feedbackList.stream()
+                    .filter(fb -> fb.getCustomer().getFullName().toLowerCase().contains(searchCustomer.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+        if (searchTitle != null && !searchTitle.isEmpty()) {
+            feedbackList = feedbackList.stream()
+                    .filter(fb -> fb.getTitle().toLowerCase().contains(searchTitle.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
         model.addAttribute("feedbackList", feedbackList);
         return "admin/feedback";
     }

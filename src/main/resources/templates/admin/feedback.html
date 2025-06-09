@@ -79,11 +79,14 @@
 
         <div class="content-page active" id="feedback-management">
             <div class="content-section">
-                <div class="search-bar">
-                    <input type="text" placeholder="Tìm kiếm phản hồi...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <table>
+                <form action="/admin/feedback" method="GET">
+                    <div class="search-bar">
+                        <input type="text" name="searchCustomer" placeholder="Tìm kiếm theo tên khách hàng">
+                        <input type="text" name="searchTitle" placeholder="Tìm kiếm theo tiêu đề phản hồi">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+                <table id="feedback-table">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -107,8 +110,7 @@
                         <td th:text="${fb.content}"></td>
                         <td>
                             <span th:each="i : ${#numbers.sequence(1, fb.roomRating)}">★</span>
-                            <span th:if="${fb.roomRating < 5}"
-                                  th:each="i : ${#numbers.sequence(1, 5 - fb.roomRating)}"
+                            <span th:if="${fb.roomRating < 5}" th:each="i : ${#numbers.sequence(1, 5 - fb.roomRating)}"
                                   style="color: #ccc;">★</span>
                         </td>
                         <td>
@@ -121,9 +123,12 @@
                     </tr>
                     </tbody>
                 </table>
+                <div id="pagination"></div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="/js/feedback.js"></script>
 </body>
 </html>
