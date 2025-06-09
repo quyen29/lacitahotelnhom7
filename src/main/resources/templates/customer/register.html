@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Đăng ký - La CiTa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/customer/register/register.css}"/>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">La CiTa</div>
+        <div class="menu">
+            <a th:href="@{/}">Trang chủ</a>
+            <a th:href="@{/booking}">Đặt phòng</a>
+            <a th:href="@{/promotion}">Khuyến mãi</a>
+            <a th:href="@{/contact}">Liên hệ</a>
+        </div>
+        <div class="user-menu">
+            <div class="user-icon">👤</div>
+            <div class="user-options" id="userOptions">
+            </div>
+        </div>
+    </div>
+</header>
+<div class="hero">
+    <div class="overlay">
+        <div class="form-container">
+            <form th:action="@{/register}" th:object="${registerCustomer}" method="POST">
+                <h2>Đăng ký tài khoản</h2>
+
+                <input type="text" th:field="*{fullName}" placeholder="Họ và tên"/>
+                <div th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="error-message"></div>
+
+                <input type="text" th:field="*{phoneNumber}" placeholder="Số điện thoại"/>
+                <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error-message"></div>
+
+                <input type="password" th:field="*{password}" placeholder="Mật khẩu"/>
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+
+                <input type="text" th:field="*{ssn}" placeholder="Căn cước công dân"/>
+                <div th:if="${#fields.hasErrors('ssn')}" th:errors="*{ssn}" class="error-message"></div>
+
+                <input type="date" th:field="*{DOB}" th:attr="max=${#temporals.format(#temporals.createNow().minusYears(18), 'yyyy-MM-dd')}"/>
+                <div th:if="${#fields.hasErrors('DOB')}" th:errors="*{DOB}" class="error-message"></div>
+
+                <input type="email" th:field="*{email}" placeholder="Email"/>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+
+                <select th:field="*{gender}">
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                    <option value="Khác">Khác</option>
+                </select>
+                <div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="error-message"></div>
+
+                <button type="submit" class="form-button">Gửi mã xác thực</button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2025 La CiTa Hotel. All rights reserved.</p>
+</footer>
+</body>
+</html>

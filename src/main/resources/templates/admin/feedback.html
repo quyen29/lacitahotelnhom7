@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phản hồi - LA CITA</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/admin/feedback/feedback.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>LA CITA</h3>
+            <p>Hệ thống quản lý</p>
+        </div>
+        <div class="sidebar-menu">
+            <a th:href="@{/admin/home}">
+                <div class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Tổng quan</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/customerManagement}">
+                <div class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Quản lý khách hàng</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/room}">
+                <div class="menu-item">
+                    <i class="fas fa-bed"></i>
+                    <span>Quản lý phòng</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/roomBooked}">
+                <div class="menu-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Quản lý đặt phòng</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/voucher}">
+                <div class="menu-item">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Quản lý Voucher</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/lostItem}">
+                <div class="menu-item">
+                    <i class="fas fa-suitcase"></i>
+                    <span>Quản lý đồ thất lạc</span>
+                </div>
+            </a>
+            <div class="menu-item active">
+                <i class="fas fa-comments"></i>
+                <span>Phản hồi</span>
+            </div>
+            <div class="menu-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <form th:action="@{/admin/logout}" method="POST" class="logout-form">
+                    <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="page-title">Phản hồi khách hàng</div>
+            <div class="user-info" onclick="openAdminInfo()">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <div>Admin</div>
+                    <small>Quản trị viên</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-page active" id="feedback-management">
+            <div class="content-section">
+                <form action="/admin/feedback" method="GET">
+                    <div class="search-bar">
+                        <input type="text" name="searchCustomer" placeholder="Tìm kiếm theo tên khách hàng">
+                        <input type="text" name="searchTitle" placeholder="Tìm kiếm theo tiêu đề phản hồi">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+                <table id="feedback-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ID khách hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>ID hóa đơn</th>
+                        <th>Tiêu đề</th>
+                        <th>Nội dung</th>
+                        <th>Chất lượng phòng</th>
+                        <th>Chất lượng dịch vụ</th>
+                        <th>Ngày gửi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="fb : ${feedbackList}">
+                        <td th:text="${fb.feedbackID}"></td>
+                        <td th:text="${fb.customer.customerID}"></td>
+                        <td th:text="${fb.customer.fullName}"></td>
+                        <td th:text="${fb.bill.billID}"></td>
+                        <td th:text="${fb.title}"></td>
+                        <td th:text="${fb.content}"></td>
+                        <td>
+                            <span th:each="i : ${#numbers.sequence(1, fb.roomRating)}">★</span>
+                            <span th:if="${fb.roomRating < 5}" th:each="i : ${#numbers.sequence(1, 5 - fb.roomRating)}"
+                                  style="color: #ccc;">★</span>
+                        </td>
+                        <td>
+                            <span th:each="i : ${#numbers.sequence(1, fb.serviceRating)}">★</span>
+                            <span th:if="${fb.serviceRating < 5}"
+                                  th:each="i : ${#numbers.sequence(1, 5 - fb.serviceRating)}"
+                                  style="color: #ccc;">★</span>
+                        </td>
+                        <td th:text="${#temporals.format(fb.feedbackDate, 'dd/MM/yyyy HH:mm')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/feedback.js"></script>
+</body>
+</html>

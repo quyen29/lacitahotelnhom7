@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin phòng</title>
+    <link rel="stylesheet" th:href="@{/admin/room/addRoom.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-Fo3rlrZj/kTcC1Xy+6iYOW1QaZ9+Y12eLhvhFI0aZz3TlEu5XN+1lFfYB5clQbkF+8qKpXjFbF5vXO6S+3jvFw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="form-title">Thông tin phòng</h3>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+        </div>
+
+        <form th:action="@{/admin/room/save}" th:object="${room}" method="POST" class="form-container">
+            <div class="form-group">
+                <label>Loại phòng</label>
+                <select th:field="*{roomType.roomTypeID}" class="room-type">
+                    <option th:each="rt : ${roomType}"
+                            th:value="${rt.roomTypeID}"
+                            th:text="${rt.roomTypeName}">
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Trạng thái</label>
+                <select th:field="*{status}" class="room-status">
+                    <option value="Trống">Trống</option>
+                    <option value="Đã đặt">Đã đặt</option>
+                    <option value="Đang sử dụng">Đang sử dụng</option>
+                    <option value="Bảo trì">Bảo trì</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <a class="btn btn-secondary cancel-button" th:href="@{/admin/room}">Hủy</a>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var roomType = document.querySelector('.room-type');
+        var status = document.querySelector('.room-status');
+
+        if (roomType) {
+            roomType.innerHTML = `<option value="" disabled selected hidden>-- Chọn loại phòng --</option>` + roomType.innerHTML;
+        }
+        if (status) {
+            status.innerHTML = `<option value="" disabled selected hidden>-- Chọn trạng thái phòng --</option>` + status.innerHTML;
+        }
+    });
+</script>
+</body>
+</html>

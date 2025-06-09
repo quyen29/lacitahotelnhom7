@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm loại phòng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-Fo3rlrZj/kTcC1Xy+6iYOW1QaZ9+Y12eLhvhFI0aZz3TlEu5XN+1lFfYB5clQbkF+8qKpXjFbF5vXO6S+3jvFw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" th:href="@{/admin/room/addRoomType.css}">
+</head>
+<body>
+<div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="form-title">Thêm loại phòng</h3>
+            <button class="modal-close"><i class="fas fa-times"></i></button>
+        </div>
+
+        <form th:action="@{/admin/room/addRoomType}" th:object="${roomType}" method="POST" class="form-container">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="roomTypeName">Loại phòng</label>
+                    <input type="text" th:field="*{roomTypeName}" class="form-control" required/>
+                </div>
+                <div class="form-group">
+                    <label for="maxOccupancy">Số người tối đa</label>
+                    <input type="number" th:field="*{maxOccupancy}" class="form-control" min="0" required/>
+                </div>
+                <div class="form-group">
+                    <label for="roomImage">Link ảnh phòng</label>
+                    <input type="text" th:field="*{roomImage}" class="form-control" required/>
+                </div>
+                <div class="form-group">
+                    <label for="area">Diện tích (m²)</label>
+                    <input type="number" step="1" th:field="*{area}" class="form-control" min="0" required/>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label>Giá theo độ tuổi (VND)</label>
+                    <div class="price-grid">
+                        <div class="form-subgroup">
+                            <label for="price1">Trẻ dưới 3 tuổi</label>
+                            <input type="number" name="price1" step="1000" class="form-control" min="0" required/>
+                        </div>
+                        <div class="form-subgroup">
+                            <label for="price2">Trẻ em</label>
+                            <input type="number" name="price2" step="1000" class="form-control" min="0" required/>
+                        </div>
+                        <div class="form-subgroup">
+                            <label for="price3">Trẻ vị thành niên</label>
+                            <input type="number" name="price3" step="1000" class="form-control" min="0" required/>
+                        </div>
+                        <div class="form-subgroup">
+                            <label for="price4">Người lớn</label>
+                            <input type="number" name="price4" step="1000" class="form-control" min="0" required/>
+                        </div>
+                        <div class="form-subgroup">
+                            <label for="price5">Người cao tuổi</label>
+                            <input type="number" name="price5" step="1000" class="form-control" min="0" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label for="description">Mô tả</label>
+                    <textarea th:field="*{description}" class="form-control" rows="4"
+                            placeholder="Nhập mô tả chi tiết về loại phòng"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a class="btn btn-secondary cancel-button" th:href="@{/admin/room}">Hủy</a>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

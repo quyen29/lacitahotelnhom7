@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" th:href="@{/admin/home/home.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>LA CITA</h3>
+            <button class="close-btn" onclick="toggleSidebar()">✕</button>
+        </div>
+        <p>Hệ thống quản lý</p>
+        <div class="sidebar-menu">
+            <div class="menu-item active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Tổng quan</span>
+            </div>
+            <a th:href="@{/admin/customerManagement}">
+                <div class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Quản lý khách hàng</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/room}">
+                <div class="menu-item">
+                    <i class="fas fa-bed"></i>
+                    <span>Quản lý phòng</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/roomBooked}">
+                <div class="menu-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Quản lý đặt phòng</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/voucher}">
+                <div class="menu-item">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Quản lý Voucher</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/lostItem}">
+                <div class="menu-item">
+                    <i class="fas fa-suitcase"></i>
+                    <span>Quản lý đồ thất lạc</span>
+                </div>
+            </a>
+            <a th:href="@{/admin/feedback}">
+                <div class="menu-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Phản hồi</span>
+                </div>
+            </a>
+            <div class="menu-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <form th:action="@{/admin/logout}" method="POST" class="logout-form">
+                    <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="page-title">Tổng quan</div>
+            <a th:href="@{/admin/infoAdmin}" class="user-info" style="text-decoration: none; color: inherit;">
+                <div class="user-avatar"><i class="fas fa-user"></i></div>
+                <div>
+                    <div>Admin</div>
+                    <small>Quản trị viên</small>
+                </div>
+            </a>
+        </div>
+        <div class="content-page active" id="dashboard">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-hotel"></i></div>
+                    <div class="stat-info">
+                        <h4>Tổng số phòng</h4>
+                        <p th:text="${totalRooms}"></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-bed"></i></div>
+                    <div class="stat-info">
+                        <h4>Số lượng phòng trống</h4>
+                        <p th:text="${availableRooms}"></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fas fa-calendar-check"></i></div>
+                    <div class="stat-info">
+                        <h4>Số lượng phòng đã đặt và đang sử dụng</h4>
+                        <p th:text="${bookedAndInUseRooms}"></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red"><i class="fas fa-user-friends"></i></div>
+                    <div class="stat-info">
+                        <h4>Số lượng khách đang ở</h4>
+                        <p th:text="${currentGuests}"></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="stat-info">
+                        <h4>Doanh thu tháng này (VND)</h4>
+                        <p th:text="${#numbers.formatDecimal(monthlyRevenue, 0, 'COMMA', 0, 'POINT')}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h3>Thống kê doanh thu theo tháng (VND)</h3>
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    const labels = /*[[${chartLabels}]]*/ [];
+    const data = /*[[${chartData}]]*/ [];
+
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                borderColor: '#2ecc71',
+                backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0,
+                pointBackgroundColor: '#2ecc71',
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        title: function(context) {
+                            return context[0].label;
+                        },
+                        label: function(context) {
+                            return 'Doanh thu: ' + context.formattedValue.toLocaleString('vi-VN') + ' VND';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 10000000,
+                        callback: function(value) {
+                            return value.toLocaleString('vi-VN');
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+<script th:src="@{/admin/home/home.js}"></script>
+</body>
+</html>

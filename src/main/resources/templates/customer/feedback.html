@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Phản hồi người dùng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/customer/feedback/feedback.css}"/>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Phản hồi người dùng</h2>
+
+    <div th:if="${hasFeedback}">
+        <p>Bạn đã gửi phản hồi cho hóa đơn này.</p>
+        <a th:href="@{'/feedback/view(billID=' + ${billId} + ')'}" class="btn btn-primary">Xem phản hồi</a>
+        <a th:href="@{/bookingHistory}" class="btn btn-secondary">Trở về</a>
+    </div>
+
+    <form th:action="@{/feedback}" method="POST" th:if="${!hasFeedback}">
+        <div class="input-group">
+            <label for="title">Tiêu đề:</label>
+            <input type="text" id="title" name="title" placeholder="Nhập tiêu đề của phản hồi" required/>
+        </div>
+
+        <div class="input-group">
+            <label for="feedback">Mô tả phản hồi:</label>
+            <textarea id="feedback" name="content" placeholder="Nhập phản hồi của bạn" required></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Đánh giá chất lượng phòng:</label>
+            <div class="star-rating" id="roomRatingGroup">
+                <input type="hidden" name="roomRating" id="roomRating" required>
+                <i class="fa-regular fa-star" data-value="1"></i>
+                <i class="fa-regular fa-star" data-value="2"></i>
+                <i class="fa-regular fa-star" data-value="3"></i>
+                <i class="fa-regular fa-star" data-value="4"></i>
+                <i class="fa-regular fa-star" data-value="5"></i>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Đánh giá chất lượng phục vụ:</label>
+            <div class="star-rating" id="serviceRatingGroup">
+                <input type="hidden" name="serviceRating" id="serviceRating" required>
+                <i class="fa-regular fa-star" data-value="1"></i>
+                <i class="fa-regular fa-star" data-value="2"></i>
+                <i class="fa-regular fa-star" data-value="3"></i>
+                <i class="fa-regular fa-star" data-value="4"></i>
+                <i class="fa-regular fa-star" data-value="5"></i>
+            </div>
+        </div>
+
+        <input type="hidden" name="customerID" th:value="${customerId}"/>
+        <input type="hidden" name="bill_id" th:value="${billId}"/>
+
+        <div class="form-actions">
+            <a th:href="@{/bookingHistory}" class="btn btn-secondary">Hủy</a>
+            <button type="submit" class="btn btn-primary">Gửi phản hồi</button>
+        </div>
+    </form>
+</div>
+<script th:src="@{/customer/feedback/feedback.js}"></script>
+</body>
+</html>

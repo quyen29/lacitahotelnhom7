@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách các ưu đãi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/customer/promotion/promotion.css}">
+</head>
+<body>
+    <header>
+    <div class="navbar">
+        <div class="logo">La CiTa</div>
+        <div class="menu">
+            <a th:href="@{/}">Trang chủ</a>
+            <a th:href="@{/booking}">Đặt phòng</a>
+            <a th:href="@{/promotion}" class="active">Khuyến mãi</a>
+            <a th:href="@{/contact}">Liên hệ</a>
+        </div>
+        <div class="user-menu">
+            <span sec:authorize="!isAuthenticated()">
+                <div class="user-icon">👤</div>
+                <div class="user-options" id="userOptions">
+                    <a type="submit" th:href="@{/showLoginPage}">Đăng nhập</a>
+                    <a type="submit" th:href="@{/register}">Đăng ký</a>
+                </div>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <div class="user-icon">👤</div>
+                <div class="user-options" id="userOptions">
+                    <a type="submit" th:href="@{/profile}">Chỉnh sửa hồ sơ</a>
+                    <a type="submit" th:href="@{/bookingHistory}">Xem lịch sử đặt phòng</a>
+                    <form th:action="@{/logout}" method="POST" class="logout-form">
+                        <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                    </form>
+                </div>
+            </span>
+        </div>
+    </div>
+</header>
+<section class="intro-section">
+  <div class="intro-content">
+    <h2>Ưu đãi độc quyền tại LaCiTa</h2>
+    <p>
+      Sở hữu một bờ biển trải dài tuyệt đẹp của Việt Nam, Amanoi mang đến không gian nghỉ dưỡng ẩn mình giữa Vườn Quốc gia Núi
+      với nhiều chương trình ưu đãi độc quyền được thiết kế để giúp khách tận dụng tối đa kỳ nghỉ của mình.
+    </p>
+  </div>
+</section>
+<div class="container my-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div class="card h-100">
+        <img th:src="@{/images/pro-1.jpg}" class="card-img-top" alt="Wellness Pool Villa" />
+        <div class="card-body">
+          <p class="text-uppercase fw-bold text-muted" style="font-size: 12px;">KỲ NGHỈ MỘT HOẶC BA ĐÊM</p>
+          <h5 class="card-title">Trải nghiệm tại Wellness Pool Villa</h5>
+          <p class="text-muted">Đến ngày 31 tháng 3 năm 2026</p>
+          <p class="card-text">
+            Khi đặt một phòng trong ba đêm, quý khách sẽ được tận hưởng tất cả bữa ăn, hai liệu pháp, ba giờ trị liệu spa với trị liệu viên riêng,
+            lễ cầu an của người Chăm, lặn biển với ống thở cùng hướng dẫn viên và hơn thế nữa.
+          </p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center">
+          <a th:href="@{/booking}" class="cus-btn">Đặt phòng ngay</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <img th:src="@{/images/pro-2.jpg}" class="card-img-top" alt="Family Villa" />
+        <div class="card-body">
+          <p class="text-uppercase fw-bold text-muted" style="font-size: 12px;">KỲ NGHỈ BA ĐÊM</p>
+          <h5 class="card-title">Nghỉ dưỡng tại khu biệt thự gia đình</h5>
+          <p class="text-muted">Đến ngày 31 tháng 3 năm 2026</p>
+          <p class="card-text">
+            Ba đêm nghỉ tại Residence bao gồm dịch vụ quản gia riêng, đưa đón sân bay khứ hồi, bữa sáng hằng ngày,
+            một bữa tối theo thực đơn Việt Nam tại Nhà hàng chính, các liệu pháp spa và nhiều dịch vụ khác.
+          </p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center">
+          <a th:href="@{/booking}" class="cus-btn">Đặt phòng ngay</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <img th:src="@{/images/pro-3.jpg}" class="card-img-top" alt="Golf vacation" />
+        <div class="card-body">
+          <p class="text-uppercase fw-bold text-muted" style="font-size: 12px;">KỲ NGHỈ BA ĐÊM</p>
+          <h5 class="card-title">Nghỉ dưỡng và chơi Golf</h5>
+          <p class="text-muted">Đến ngày 31 tháng 3 năm 2026</p>
+          <p class="card-text">
+            Kỳ nghỉ ba đêm, bao gồm ăn sáng và chơi 18 lỗ tại sân golf ngoài khuôn viên với phí sân,
+            phí caddy, xe điện dùng chung, dịch vụ đưa đón, bộ dụng cụ chơi golf và nhiều dịch vụ khác.
+          </p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center">
+          <a th:href="@{/booking}" class="cus-btn">Đặt phòng ngay</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <img th:src="@{/images/pro-4.webp}" class="card-img-top" alt="Wellness Pool Villa" />
+        <div class="card-body">
+          <p class="text-uppercase fw-bold text-muted" style="font-size: 12px;">KỲ NGHỈ BỐN ĐÊM TRỞ LÊN</p>
+          <h5 class="card-title">Tận hưởng kỳ nghỉ dài ngày</h5>
+          <p class="text-muted">Đến ngày 31 tháng 3 năm 2026</p>
+          <p class="card-text">
+            Tận hưởng một đêm miễn phí khi nghỉ từ bốn đêm trở lên, bữa sáng hàng ngày và dịch vụ đưa đón khứ hồi từ sân bay.
+          </p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center">
+          <a th:href="@{/booking}" class="cus-btn">Đặt phòng ngay</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <img th:src="@{/images/pro-5.webp}" class="card-img-top" alt="Family Villa" />
+        <div class="card-body">
+          <p class="text-uppercase fw-bold text-muted" style="font-size: 12px;">KỲ NGHỈ BA, NĂM HOẶC BẢY ĐÊM</p>
+          <h5 class="card-title">Nghỉ dưỡng tại khu biệt thự gia đình</h5>
+          <p class="text-muted">Đến ngày 31 tháng 3 năm 2027</p>
+          <p class="card-text">
+            Thưởng thức bữa sáng hàng ngày, bữa tối Việt Nam và dịch vụ đưa đón sân bay khứ hồi với kỳ nghỉ ba đêm.
+            Kỳ nghỉ dài hơn được kéo dài với đêm miễn phí và bữa tối BBQ riêng tư.
+          </p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center">
+          <a th:href="@{/booking}" class="cus-btn">Đặt phòng ngay</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card h-100">
+        <img th:src="@{/images/pro-6.webp}" class="card-img-top" alt="Golf vacation" />
+        <div class="card-body">
+          <p class="text-uppercase fw-bold text-muted" style="font-size: 12px;">HÀNH TRÌNH NHIỀU ĐIỂM ĐẾN</p>
+          <h5 class="card-title">Hai thế giới, một hành trình</h5>
+          <p class="text-muted">Đến ngày 31 tháng 3 năm 2026</p>
+          <p class="card-text">
+            Nhận nhiều quyền lợi độc quyền khi kết hợp kỳ nghỉ tại hai hoặc nhiều cơ sở lưu trú.
+          </p>
+        </div>
+        <div class="card-footer bg-white border-0 text-center">
+          <a th:href="@{/booking}" class="cus-btn">Đặt phòng ngay</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+    <p>&copy; 2025 La CiTa Hotel. All rights reserved.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>La CiTa - Liên Hệ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap"
+            rel="stylesheet"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/customer/contact/contact.css}"/>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">La CiTa</div>
+        <div class="menu">
+            <a th:href="@{/}">Trang chủ</a>
+            <a th:href="@{/booking}">Đặt phòng</a>
+            <a th:href="@{/promotion}">Khuyến mãi</a>
+            <a th:href="@{/contact}">Liên hệ</a>
+        </div>
+
+        <div class="user-menu">
+            <span sec:authorize="!isAuthenticated()">
+                        <div class="user-icon">👤</div>
+                        <div class="user-options" id="userOptions">
+                            <a type="submit" th:href="@{/showLoginPage}">Đăng nhập</a>
+                            <a type="submit" th:href="@{/register}">Đăng ký</a>
+                        </div>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                        <div class="user-icon">👤</div>
+                        <div class="user-options" id="userOptions">
+                            <a type="submit" th:href="@{/profile}">Chỉnh sửa hồ sơ</a>
+                            <a type="submit" th:href="@{/bookingHistory}">Xem lịch sử đặt phòng</a>
+                            <form th:action="@{/logout}" method="POST" class="logout-form">
+                                <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                            </form>
+                        </div>
+            </span>
+        </div>
+    </div>
+</header>
+
+    <div class="intro">
+        <h3>Liên hệ</h3>
+        <p>Không có yêu cầu nào là quá lớn hay quá nhỏ đối với đội ngũ nhân viên tận tình của chúng tôi.</p>
+        <p>Chúng tôi luôn có mặt để hỗ trợ cho kỳ nghỉ của bạn.</p>
+    </div>
+    <div class="list-attraction">
+        <div class="slider">
+            <div class="list">
+                <div class="item">
+                    <div class="detail-attraction">
+                        <div class="name-attraction">Trần Phúc Tiến</div>
+                        <div class="intro-attraction">
+                            Vai trò: Backend<br>
+                            MSSV: N22DCAT057 <br>
+                            Lớp: D22CQAT01-N <br>
+                            Email: n22dcat057@student.ptithcm.edu.vn
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="detail-attraction">
+                        <div class="name-attraction">Đỗ Xuân Dũng</div>
+                        <div class="intro-attraction">
+                            Vai trò: Business Analyst, Tester<br>
+                            MSSV: N22DCAT010 <br>
+                            Lớp: D22CQAT01-N <br>
+                            Email: n22dcat010@student.ptithcm.edu.vn
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="detail-attraction">
+                        <div class="name-attraction">Trần Công Hậu</div>
+                        <div class="intro-attraction">
+                            Vai trò: Technical Developer<br>
+                            MSSV: N22DCAT020 <br>
+                            Lớp: D22CQAT01-N <br>
+                            Email: n22dcat020@student.ptithcm.edu.vn</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="detail-attraction">
+                        <div class="name-attraction">Đinh Hoàng Quân</div>
+                        <div class="intro-attraction">
+                            Vai trò: Frontend<br>
+                            MSSV: N22DCAT044 <br>
+                            Lớp: D22CQAT01-N <br>
+                            Email: n22dcat044@student.ptithcm.edu.vn</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="detail-attraction">
+                        <div class="name-attraction">Mai Mỹ Quyên</div>
+                        <div class="intro-attraction">
+                            Vai trò: Database<br>
+                            MSSV: N22DCCN166 <br>
+                            Lớp: D22CQCN02-N <br>
+                            Email: n22dccn166@student.ptithcm.edu.vn</div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="prev"><</button>
+                <button class="next">></button>
+            </div>
+            <ul class="dots">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div class="address">
+        <div class="intro-path">
+            <div class="title">
+                <img th:src="@{/images/logo.png}" alt="logo">
+                <div>LA CITA HOTEL</div>
+            </div>
+            <div class="gg-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2368.213388211702!2d106.78673473778079!3d10.847855680850964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752772b245dff1%3A0xb838977f3d419d!2zSOG7jWMgdmnhu4duIEPDtG5nIG5naOG7hyBCxrB1IENow61uaCBWaeG7hW4gVGjDtG5nIGPGoSBz4bufIHThuqFpIFRQLkhDTQ!5e0!3m2!1svi!2s!4v1743439722301!5m2!1svi!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="info">
+            <h4>THÔNG TIN LIÊN HỆ</h4>
+            <div class="list-option">
+                <div class="option">
+                    <div class="name-option">Điện thoại</div>
+                    <div class="info-detail">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z" fill="#1C274C"></path>
+                            </g>
+                        </svg>
+                        <a href="tel: 028.37.305 316" className="phone">028.37.305 316</a>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="name-option">Email</div>
+                    <div class="info-detail">
+                        <svg height="200px" width="200px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <g>
+                                    <path class="st0" d="M440.917,67.925H71.083C31.827,67.925,0,99.752,0,139.008v233.984c0,39.256,31.827,71.083,71.083,71.083 h369.834c39.255,0,71.083-31.827,71.083-71.083V139.008C512,99.752,480.172,67.925,440.917,67.925z M178.166,321.72l-99.54,84.92 c-7.021,5.992-17.576,5.159-23.567-1.869c-5.992-7.021-5.159-17.576,1.87-23.567l99.54-84.92c7.02-5.992,17.574-5.159,23.566,1.87 C186.027,305.174,185.194,315.729,178.166,321.72z M256,289.436c-13.314-0.033-26.22-4.457-36.31-13.183l0.008,0.008l-0.032-0.024 c0.008,0.008,0.017,0.008,0.024,0.016L66.962,143.694c-6.98-6.058-7.723-16.612-1.674-23.583c6.057-6.98,16.612-7.723,23.582-1.674 l152.771,132.592c3.265,2.906,8.645,5.004,14.359,4.971c5.706,0.017,10.995-2.024,14.44-5.028l0.074-0.065l152.615-132.469 c6.971-6.049,17.526-5.306,23.583,1.674c6.048,6.97,5.306,17.525-1.674,23.583l-152.77,132.599 C282.211,284.929,269.322,289.419,256,289.436z M456.948,404.771c-5.992,7.028-16.547,7.861-23.566,1.869l-99.54-84.92 c-7.028-5.992-7.861-16.546-1.869-23.566c5.991-7.029,16.546-7.861,23.566-1.87l99.54,84.92 C462.107,387.195,462.94,397.75,456.948,404.771z"></path>
+                                </g>
+                            </g>
+                        </svg>
+                        <a href="mailto:lacitahotelnhom7@gmail.com">lacitahotelnhom7@gmail.com</a>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="name-option">Địa chỉ</div>
+                    <div class="info-detail">
+                        <svg viewBox="0 0 8.4666669 8.4666669" id="svg8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <defs id="defs2"></defs>
+                                <g id="layer1" transform="translate(0,-288.53332)">
+                                    <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path>
+                                </g>
+                            </g>
+                        </svg>
+                        <a href="https://www.google.com/maps/place/H%E1%BB%8Dc+vi%E1%BB%87n+C%C3%B4ng+ngh%E1%BB%87+B%C6%B0u+Ch%C3%ADnh+Vi%E1%BB%85n+Th%C3%B4ng+c%C6%A1+s%E1%BB%9F+t%E1%BA%A1i+TP.HCM/@10.8478557,106.7867347,17.73z/data=!4m6!3m5!1s0x31752772b245dff1:0xb838977f3d419d!8m2!3d10.847987!4d106.7866647!16s%2Fm%2F0119w781?hl=vi-VN&entry=ttu&g_ep=EgoyMDI1MDMyNS4xIKXMDSoASAFQAw%3D%3D" target="_blank">97 Man Thiện, Hiệp Phú, Thủ Đức, Hồ Chí Minh.</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 La CiTa Hotel. All rights reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu"
+            crossorigin="anonymous"></script>
+    <script>
+        let list = document.querySelector(".slider .list");
+        let items = document.querySelectorAll(".slider .list .item");
+        let dots = document.querySelectorAll(".slider .dots li");
+        let prev = document.querySelector(".prev");
+        let next = document.querySelector(".next");
+        let active = {value: 0};
+        let lengthItems = items.length - 1;
+
+
+        next.addEventListener("click", function() {
+            if (active.value + 1 > lengthItems) {
+                active.value = 0;
+            } else {
+                active.value = active.value + 1;
+            }
+            reloadSlider();
+        });
+
+        prev.addEventListener("click", function() {
+            if (active.value - 1 < 0) {
+                active.value = lengthItems;
+            } else {
+                active.value = active.value - 1;
+            }
+            reloadSlider();
+        });
+
+        function reloadSlider() {
+            let checkLeft = items[active.value].offsetLeft-1;
+            list.style.left = -checkLeft + "px";
+
+            let lastActiveDot = document.querySelector(`.slider .dots li.active`);
+            lastActiveDot.classList.remove("active");
+            dots[active.value].classList.add("active");
+        }
+        dots.forEach(function(li, key) {
+            li.addEventListener("click", function() {
+                active.value = key;
+                reloadSlider();
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Quản lý đồ thất lạc</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/admin/lostItem/lostItem.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>LA CITA</h3>
+            <p>Hệ thống quản lý</p>
+        </div>
+        <div class="sidebar-menu">
+            <a th:href="@{/admin/home}" class="menu-item"><i
+                    class="fas fa-tachometer-alt"></i><span>Tổng quan</span></a>
+            <a th:href="@{/admin/customerManagement}" class="menu-item"><i class="fas fa-users"></i><span>Quản lý khách hàng</span></a>
+            <a th:href="@{/admin/room}" class="menu-item"><i class="fas fa-bed"></i><span>Quản lý phòng</span></a>
+            <a th:href="@{/admin/roomBooked}" class="menu-item"><i class="fas fa-calendar-check"></i><span>Quản lý đặt phòng</span></a>
+            <a th:href="@{/admin/voucher}" class="menu-item"><i class="fas fa-ticket-alt"></i><span>Quản lý Voucher</span></a>
+            <a th:href="@{/admin/lostItem}" class="menu-item active"><i
+                    class="fas fa-suitcase"></i><span>Quản lý đồ thất lạc</span></a>
+            <a th:href="@{/admin/feedback}" class="menu-item"><i class="fas fa-comments"></i><span>Phản hồi</span></a>
+            <div class="menu-item" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <form th:action="@{/admin/logout}" method="POST" class="logout-form">
+                    <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="page-title">Quản lý đồ thất lạc</div>
+            <div class="user-info">
+                <div class="user-avatar"><i class="fas fa-user"></i></div>
+                <div>
+                    <div>Admin</div>
+                    <small>Quản trị viên</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-row">
+            <div class="filter-group">
+                <input type="text" id="search-name" placeholder="Tìm theo tên đồ vật">
+                <input type="text" id="search-room" placeholder="Tìm theo ID phòng">
+                <button class="search-btn" onclick="searchLostItem()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <a th:href="@{/admin/lostItem/addLostItem}" class="btn btn-success btn-sm mb-4" id="action-button">
+                <i class="fas fa-plus"></i> Thêm đồ thất lạc
+            </a>
+        </div>
+
+        <div class="content-section">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên đồ vật</th>
+                    <th>ID Phòng</th>
+                    <th>Mô tả</th>
+                    <th>Tình trạng</th>
+                    <th>Tùy chọn</th>
+                </tr>
+                </thead>
+                <tbody id="lost-item-table">
+                <tr th:each="item : ${lostItems}" th:data-name="${item.name}" th:data-room="${item.roomID}">
+                    <td th:text="${item.itemID}"></td>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.roomID}"></td>
+                    <td th:text="${item.description}"></td>
+                    <td th:text="${item.status}"></td>
+                    <td class="text-center">
+                        <div class="action-icons">
+                            <a th:href="@{'/admin/lostItem/edit/' + ${item.itemID}}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit edit"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/admin/lostItem/lostItem.js}"></script>
+</body>
+</html>

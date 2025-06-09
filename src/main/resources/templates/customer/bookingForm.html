@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin đặt phòng</title>
+    <link rel="stylesheet" th:href="@{/customer/bookingForm/bookingForm.css}">
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="logo">La CiTa</div>
+        <div class="menu">
+            <a th:href="@{/}">Trang chủ</a>
+            <a th:href="@{/booking}" class="active">Đặt phòng</a>
+            <a th:href="@{/promotion}">Khuyến mãi</a>
+            <a th:href="@{/contact}">Liên hệ</a>
+        </div>
+        <div class="user-menu">
+            <span sec:authorize="!isAuthenticated()">
+                <div class="user-icon">👤</div>
+                <div class="user-options" id="userOptions">
+                    <a type="submit" th:href="@{/showLoginPage}">Đăng nhập</a>
+                    <a type="submit" th:href="@{/register}">Đăng ký</a>
+                </div>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <div class="user-icon">👤</div>
+                <div class="user-options" id="userOptions">
+                    <a type="submit" th:href="@{/profile}">Chỉnh sửa hồ sơ</a>
+                    <a type="submit" th:href="@{/bookingHistory}">Xem lịch sử đặt phòng</a>
+                    <form th:action="@{/logout}" method="POST" class="logout-form">
+                        <input type="submit" value="Đăng xuất" class="logout-btn"/>
+                    </form>
+                </div>
+            </span>
+        </div>
+    </div>
+</header>
+<div class="intro-text">
+    <h1>ĐẶT PHÒNG</h1>
+    <p>Vui lòng kiểm tra và xác nhận thông tin đặt phòng.</p>
+</div>
+<div class="booking-wrapper">
+    <div class="booking-left">
+        <h3>Thông tin đặt phòng</h3>
+        <form th:method="POST" th:action="@{/booking/showBookingForm/payment}" id="bookingSubmitForm">
+            <input type="hidden" name="roomTypeId" th:value="${roomType.roomTypeID}">
+            <input type="hidden" name="price" th:value="${roomType.price}">
+            <input type="hidden" name="checkInDate" id="hiddenCheckInDate">
+            <input type="hidden" name="checkOutDate" id="hiddenCheckOutDate">
+            <input type="hidden" name="checkInHour" id="hiddenCheckInHour">
+            <input type="hidden" name="checkOutHour" id="hiddenCheckOutHour">
+            <input type="hidden" name="roomQuantity" id="hiddenRoomQuantity">
+            <input type="hidden" name="totalPeople" id="hiddenTotalPeople">
+            <input type="hidden" name="numberOfAdult" id="hiddenNumberOfAdult">
+            <input type="hidden" name="numberOfChild" id="hiddenNumberOfChild">
+            <input type="hidden" name="adult" id="hiddenAdult">
+            <input type="hidden" name="elder" id="hiddenElder">
+            <input type="hidden" name="teen" id="hiddenTeen">
+            <input type="hidden" name="child" id="hiddenChild">
+            <input type="hidden" name="underThree" id="hiddenUnderThree">
+            <input type="hidden" name="totalPrice" id="hiddenTotalPrice">
+
+            <p><strong>Loại phòng:</strong> <span th:text="${roomType.roomTypeName}"></span></p>
+            <p><strong>Giá cơ bản:</strong> <span th:text="${#numbers.formatDecimal(roomType.price, 0, 'COMMA', 0, 'POINT')} + ' VND'"></span></p>
+
+            <div class="form-group">
+                <div class="inline-row">
+                    <label>Ngày nhận phòng:</label>
+                    <input type="date" id="checkInDate" name="checkInDate_input" required th:attr="min=${#temporals.format(#temporals.createNow().plusDays(1), 'yyyy-MM-dd')}">
+                    <select id="checkInHour" name="checkInHour">
+                        <option th:each="i : ${#numbers.sequence(0, 23)}" th:value="${i}" th:text="${i + ':00'}">00:00</option>
+                    </select>
+                </div>
+                <div class="inline-row">
+                    <label>Ngày trả phòng:</label>
+                    <input type="date" id="checkOutDate" name="checkOutDate_input" required th:attr="min=${#temporals.format(#temporals.createNow().plusDays(1), 'yyyy-MM-dd')}">
+                    <select id="checkOutHour" name="checkOutHour">
+                        <option th:each="i : ${#numbers.sequence(0, 23)}" th:value="${i}" th:text="${i + ':00'}">00:00</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="inline-row">
+                    <label>Số lượng phòng:</label>
+                    <select id="roomQuantitySelect">
+                        <option th:each="i : ${#numbers.sequence(1, available)}" th:value="${i}" th:text="${i}">1</option>
+                    </select>
+                    <span>Số lượng phòng trống: <span th:text="${available}"></span></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="inline-controls">
+                    <label>Số lượng người lớn (18-59 tuổi):</label>
+                    <select id="adultInput"></select>
+                    <span id="priceAdult" th:attr="data-price=${priceByAge[4]}" th:text="${#numbers.formatDecimal(priceByAge[4], 0, 'COMMA', 0, 'POINT')} + ' VND/người'"></span>
+                </div>
+                <div class="inline-controls">
+                    <label>Số lượng người cao tuổi (trên 60 tuổi):</label>
+                    <select id="elderInput"></select>
+                    <span id="priceElder" th:attr="data-price=${priceByAge[5]}" th:text="${#numbers.formatDecimal(priceByAge[5], 0, 'COMMA', 0, 'POINT')} + ' VND/người'"></span>
+                </div>
+                <div class="inline-controls">
+                    <label>Số lượng trẻ vị thành niên (12-17 tuổi):</label>
+                    <select id="teenInput"></select>
+                    <span id="priceTeen" th:attr="data-price=${priceByAge[3]}" th:text="${#numbers.formatDecimal(priceByAge[3], 0, 'COMMA', 0, 'POINT')} + ' VND/người'"></span>
+                </div>
+                <div class="inline-controls">
+                    <label>Số lượng trẻ em (3-11 tuổi):</label>
+                    <select id="childInput"></select>
+                    <span id="priceChild" th:attr="data-price=${priceByAge[2]}" th:text="${#numbers.formatDecimal(priceByAge[2], 0, 'COMMA', 0, 'POINT')} + ' VND/người'"></span>
+                </div>
+                <div class="inline-controls">
+                    <label>Số lượng trẻ nhỏ dưới 3 tuổi (0-2 tuổi):</label>
+                    <select id="underThreeInput"></select>
+                    <span id="priceUnderThree" th:attr="data-price=${priceByAge[1]}" th:text="${#numbers.formatDecimal(priceByAge[1], 0, 'COMMA', 0, 'POINT')} + ' VND/người'"></span>
+                </div>
+                <div id="peopleError"></div>
+            </div>
+
+            <div class="price-display" id="priceDisplay">
+                Tổng giá: 0 VND (0 giờ, 0 phòng)
+            </div>
+
+            <button type="submit" class="btn pay-btn">THANH TOÁN</button>
+        </form>
+    </div>
+
+    <div class="booking-right">
+        <div class="room-preview">
+            <div class="room-image">
+                <h3>Hình ảnh:</h3>
+                <img th:src="${roomType.roomImage}" alt="Room Image">
+            </div>
+            <div class="room-area">
+                <h3>Diện tích:</h3>
+                <p th:text="${roomType.area + ' m²'}"></p>
+            </div>
+            <div class="room-capacity">
+                <h3>Sức chứa tối đa:</h3>
+                <p><span id="maxPeople" th:text="${roomType.maxOccupancy}"></span> người</p>
+            </div>
+            <div class="room-description">
+                <h3>Mô tả:</h3>
+                <p th:text="${roomType.description}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 La CiTa Hotel. All rights reserved.</p>
+</footer>
+<script th:src="@{/customer/bookingForm/bookingForm.js}"></script>
+</body>
+</html>
